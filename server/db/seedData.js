@@ -12,6 +12,7 @@ async function dropTables() {
     await client.query(`
     DROP TABLE IF EXISTS users;
     DROP TABLE IF EXISTD products;
+
   `)
   } catch (error) {
     throw error
@@ -30,7 +31,6 @@ async function createTables() {
         username VARCHAR(255) UNIQUE NOT NULL, 
         password VARCHAR(255) NOT NULL
       );
-
       CREAT TABLE products(
         id SERIAL PRIMARY KEY,
         name VARCHAR(255) UNIQUE NOT NULL,
