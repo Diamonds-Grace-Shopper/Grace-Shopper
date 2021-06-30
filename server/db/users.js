@@ -86,8 +86,40 @@ async function getUserByUsername(userName) {
     console.error(error)
   }
 }
+
+async function createCart({person}) {
+  try {
+    const { rows: [cart] } = await client.query(`
+      INSERT INTO carts(person)
+      VALUES ($1)
+      ON CONFLICT (person) DO NOTHING
+      RETURNING *;
+    `, [person])
+    
+    return cart
+  } catch (error) {
+    console.error(error)
+  }
+}
+
+async function createProduct({name}) {
+  try {
+    const { rows: [product] } = await client.query(`
+      INSERT INTO products(name)
+      VALUES ($1)
+      RETURNING *;
+    `, [name])
+    
+    return product
+  } catch (error) {
+    console.error(error)
+  }
+}
+
 module.exports = {
   createUser,
+  createCart,
+  createProduct,
   getUser,
   getUserById,
   getUserByUsername,
