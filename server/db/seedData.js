@@ -1,5 +1,6 @@
 // require in the database adapter functions as you write them (createUser, createActivity...)
 const { createUser } = require('./')
+const { createProduct } = require('./products')
 const client = require('./client')
 
 async function dropTables() {
@@ -10,7 +11,8 @@ async function dropTables() {
   try {
     await client.query(`
     DROP TABLE IF EXISTS users;
-    DROP TABLE FI EXISTS carts;
+    DROP TABLE IF EXISTD products;
+
   `)
   } catch (error) {
     throw error
@@ -29,20 +31,28 @@ async function createTables() {
         username VARCHAR(255) UNIQUE NOT NULL, 
         password VARCHAR(255) NOT NULL
       );
-
-      CREATE TABLE carts (
+      CREAT TABLE products(
         id SERIAL PRIMARY KEY,
-        status varchar(255) NOT NULL,
-        "cartQuantity" INTEGER DEFAULT 0,
-        date VARCHAR(10),
-        time VARCHAR(8), 
-        total DECIMAL NOT NULL,
-        "userId" INTEGER REFERENCES users(id)
-      ); 
+        name VARCHAR(255) UNIQUE NOT NULL,
+        description TEXT NOT NULL,
+        price FLOAT NOT NULL,
+        category TEXT NOT NULL
+      )
+
+
+
+
+
+
 
     `)
 
     // Add tables as you need them (A good place to start is Products and Orders
+
+
+
+
+
     // You may also need an extra table that links products and orders together (HINT* Many-To-Many)
 
     console.log('Finished building tables!')
@@ -75,14 +85,36 @@ async function createInitialUsers() {
   }
 }
 
+
+
+async function creatInitialProducts(){
+  try{
+    const productsToCreate = [
+      {name:'ribeye', price:'19.99', description:'1.5" cut, 14oz ', category:'beef'},
+      {name:'short ribs', price:'29.99', description:' 1.5lb ', category:'beef'}
+    ]
+    const products = await Promise.all(productsToCreate.map(createProduct))
+
+    console.log('Products created:')
+    console.log(products)
+    console.log('Finished creating products!')
+  }catch(error){
+    console.error('Error creating products!')
+    throw error
+  }
+}
+
+
 async function rebuildDB() {
   try {
     client.connect()
     await dropTables()
     await createTables()
     await createInitialUsers()
-
+    
     // create other data
+
+    await creatInitialProducts
   } catch (error) {
     console.log('Error during rebuildDB')
     throw error
