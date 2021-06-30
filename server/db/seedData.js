@@ -10,6 +10,7 @@ async function dropTables() {
   try {
     await client.query(`
     DROP TABLE IF EXISTS users;
+    DROP TABLE FI EXISTS carts;
   `)
   } catch (error) {
     throw error
@@ -28,6 +29,17 @@ async function createTables() {
         username VARCHAR(255) UNIQUE NOT NULL, 
         password VARCHAR(255) NOT NULL
       );
+
+      CREATE TABLE carts (
+        id SERIAL PRIMARY KEY,
+        status varchar(255) NOT NULL,
+        "cartQuantity" INTEGER DEFAULT 0,
+        date VARCHAR(10),
+        time VARCHAR(8), 
+        total DECIMAL NOT NULL,
+        "userId" INTEGER REFERENCES users(id)
+      ); 
+
     `)
 
     // Add tables as you need them (A good place to start is Products and Orders
