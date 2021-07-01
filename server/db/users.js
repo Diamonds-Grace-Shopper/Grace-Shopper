@@ -5,18 +5,19 @@ const SALT_COUNT = 10
 // database functions
 
 // user functions
-async function createUser({ username, password }) {
+async function createUser({ username, password, email, shippingAddress }) {
   const hashedPassword = await bcrypt.hash(password, SALT_COUNT)
   try {
     const {
       rows: [user],
     } = await client.query(
       `
-      INSERT INTO users(username, password) VALUES ($1, $2)
+      INSERT INTO users(username, password, email, "shippingAddress") 
+      VALUES ($1, $2, $3, $4)
       ON CONFLICT (username) DO NOTHING 
-      RETURNING id, username
+      RETURNING id, username, email, "shippingAddress";
     `,
-      [username, hashedPassword]
+      [username, hashedPassword, email, shippingAddress]
     )
     return user
   } catch (error) {
@@ -87,39 +88,8 @@ async function getUserByUsername(userName) {
   }
 }
 
-async function createCart({person}) {
-  try {
-    const { rows: [cart] } = await client.query(`
-      INSERT INTO carts(person)
-      VALUES ($1)
-      ON CONFLICT (person) DO NOTHING
-      RETURNING *;
-    `, [person])
-    
-    return cart
-  } catch (error) {
-    console.error(error)
-  }
-}
-
-async function createProduct({name}) {
-  try {
-    const { rows: [product] } = await client.query(`
-      INSERT INTO products(name)
-      VALUES ($1)
-      RETURNING *;
-    `, [name])
-    
-    return product
-  } catch (error) {
-    console.error(error)
-  }
-}
-
 module.exports = {
   createUser,
-  createCart,
-  createProduct,
   getUser,
   getUserById,
   getUserByUsername,
