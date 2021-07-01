@@ -1,6 +1,7 @@
 // Required IMPORTS
 const express = require('express')
 const server = express()
+const cors = require('cors')
 const morgan = require('morgan')
 const path = require('path')
 const apiRouter = require('./api')
@@ -9,6 +10,7 @@ const PORT = 4000 // server port
 
 // connect the database client
 client.connect()
+server.use(cors())
 
 // body-parser & logging middleware
 server.use(express.json())
