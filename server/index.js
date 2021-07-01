@@ -30,7 +30,8 @@ server.use((err, req, res, next) => {
 
 // For any get routes that are not in /api, rely on ReactRouter to handle
 server.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'build', 'index.js'))
+  //res.sendFile(path.join(__dirname, 'build', 'index.js'))
+  res.send('hello')
 })
 
 // 404 Handler
