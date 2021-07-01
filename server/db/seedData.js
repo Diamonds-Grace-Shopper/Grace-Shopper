@@ -93,10 +93,10 @@ async function createInitialUsers() {
 async function createInitialProducts() {
   try{
     const productsToCreate = [
-      {name:'ribeye', description:'1.5" cut, 14oz ', price:'19.99', category:'beef'},
+      {name:'ribeye', description:'1.5 cut, 14oz ', price:'19.99', category:'beef'},
       {name:'short ribs', description:' 1.5lb ', price:'29.99', category:'beef'},
     ]
-    const products = await Promise.all(productsToCreate.map(createProduct))
+    const products = await Promise.all(productsToCreate.map((product) => createProduct(product)))
 
     console.log('Products created:')
     console.log(products)
@@ -111,8 +111,8 @@ async function createInitialProducts() {
 //   console.log('Starting to create carts...')
 //   try {
 //     const cartsToCreate = [
-//       { status: 'stock', carQuatity: '1', date: '6/6/21', total: '19.99', userId: 2 },
-//       { status: 'stock', carQuatity: '2', date: '7/1/21', total: '29.99', userId: 1 },
+//       { status: 'stock', carQuatity: '1', date: '6/6/21', total: '19.99', userId: '2' },
+//       { status: 'stock', carQuatity: '2', date: '7/1/21', total: '29.99', userId: '1' },
 //     ]
 //     const carts = await Promise.all(ordersToCreate.map(createCarts))
 
@@ -136,8 +136,8 @@ async function rebuildDB() {
     // create other data
 
     await createInitialProducts()
-    
     // await createInitialCarts()
+
   } catch (error) {
     console.log('Error during rebuildDB')
     throw error

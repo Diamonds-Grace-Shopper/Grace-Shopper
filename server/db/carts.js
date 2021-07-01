@@ -10,7 +10,7 @@ async function createCarts({ status, cartQuatity, date, time, total, userId }) {
 		`
 		INSERT INTO carts(status, cartQuatity, date, time, total, userId) VALUES ($1, $2. $3, $4, $5, $6)
 		ON CONFLICT (satus) DO NOTHING 
-		RETURNING id, total
+		RETURNING *
 	  `,
 		[status, cartQuatity, date, time, total, userId]
 	  )
