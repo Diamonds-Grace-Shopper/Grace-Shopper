@@ -1,24 +1,24 @@
-const { client } = require('./client');
+const client = require('./client');
 
 const LIMIT = 20
 
-async function createCarts({ status, cartQuatity, date, time, total, userId }) {
+async function createCarts({ status, cartQuantity, date, time, total, userId }) {
 	try {
 	  const {
 		rows: [cart],
 	  } = await client.query(
 		`
-		INSERT INTO carts(status, cartQuatity, date, time, total, userId) VALUES ($1, $2. $3, $4, $5, $6)
-		ON CONFLICT (satus) DO NOTHING 
-		RETURNING *
+		INSERT INTO carts(status, cartQuantity, date, time, total, userId) 
+		VALUES ($1, $2, $3, $4, $5, $6)
+		RETURNING *;
 	  `,
-		[status, cartQuatity, date, time, total, userId]
+		[status, cartQuantity, date, time, total, userId]
 	  )
 	  return cart
 	} catch (error) {
 	  throw error
 	}
-  }
+  };
 
 async function addCart({ status, total, userId }) {
 	
@@ -27,7 +27,7 @@ async function addCart({ status, total, userId }) {
 			rows: [newCart],
 		} = await client.query(
 			`
-        INSERT INTO carts (status, date, time, total, "userId")
+        INSERT INTO carts (status, date, time, total, userId)
         VALUES ($1, $2, $3, $4, $5)
         RETURNING *;
     `,
@@ -46,7 +46,7 @@ async function getCartHistoryStatus(id) {
 		const { rows } = await client.query(
 			`
         SELECT * FROM carts
-        WHERE (status = 'processing' OR status = 'shipped' OR status = 'cancelled') AND "userId" = $1;
+        WHERE (status = 'processing' OR status = 'shipped' OR status = 'cancelled') AND userId = $1;
         `,
 			[id],
 		);
@@ -152,7 +152,7 @@ async function getActiveCartAlone(userId) {
 		} = await client.query(
 			`
           SELECT * FROM carts 
-          WHERE status = 'active' AND "userId" = $1;
+          WHERE status = 'active' AND userId = $1;
           `,
 			[userId],
 		);
@@ -160,6 +160,48 @@ async function getActiveCartAlone(userId) {
 		if (activeCart !== undefined) {
 			return activeCart;
 		}
+	} catch (error) {
+		throw error;
+	}
+}
+
+async function addProductToCart({ userId, productId, cartId, quantity, unitPrice }) {
+	
+	try {
+		const itemTotal = quantity * unitPrice;
+		await client.query(
+			`
+              INSERT INTO products_carts ("productId", "cartId", quantity, "unitPrice", "itemTotal")
+              VALUES ($1, $2, $3, $4, $5)
+              RETURNING *;
+          `,
+			[productId, cartId, quantity, unitPrice, itemTotal],
+		);
+		const cart = await getActiveCart(userId);
+		
+		let total = 0;
+		let cartQuantity = 0;
+		cart.items.map((item) => {
+			total = total + item.itemTotal;
+			cartQuantity = cartQuantity + item.quantity;
+		});
+
+		await client.query(
+			`
+            UPDATE carts
+            SET total=$1,
+            cartQuantity=$2
+            WHERE id=$3
+            RETURNING *;
+        `,
+			[total, cartQuantity, cartId],
+		);
+
+		await lastUpdated(cartId);
+
+		const newCart = await getActiveCart(userId);
+
+		return newCart;
 	} catch (error) {
 		throw error;
 	}
@@ -173,5 +215,7 @@ module.exports = {
 	getProcessingCarts,
     getUserById,
 	getActiveCart,
-	getActiveCartAlone
+	getActiveCartAlone,
+	addProductToCart
+	
 }
