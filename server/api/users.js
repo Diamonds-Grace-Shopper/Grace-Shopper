@@ -85,5 +85,13 @@ router.get('/me', (req, res, next) => {
   }
 })
 
+router.get('/', (req, res, next) => {
+  try {
+    res.send({message: 'users'})
+  } catch (error) {
+    next(error)
+  }
+})
+
 // --------- ADD ADDITONAL USER ROUTES AS NEEDED ---------
 module.exports = router
