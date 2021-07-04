@@ -4,5 +4,5 @@ module.exports = {
   client,
   ...require('./users'),
   ...require('./products'),
-  ...require('./carts')
+  ...require('./orders')
 }

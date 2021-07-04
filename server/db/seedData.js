@@ -1,7 +1,8 @@
 // require in the database adapter functions as you write them (createUser, createActivity...)
 const { createUser } = require('./')
 const { createProduct } = require('./products')
-const { createCarts } = require('./carts')
+const { createOrders } = require('./orders')
+const { createProductToOrders } = require('./orders')
 const client = require('./client')
 
 async function dropTables() {
@@ -13,7 +14,8 @@ async function dropTables() {
     await client.query(`
     DROP TABLE IF EXISTS users CASCADE;
     DROP TABLE IF EXISTS products CASCADE;
-    DROP TABLE IF EXISTS carts CASCADE;
+    DROP TABLE IF EXISTS orders CASCADE;
+    DROP TABLE IF EXISTS products_orders CASCADE;
   `)
   } catch (error) {
     throw error
@@ -39,15 +41,22 @@ async function createTables() {
         price FLOAT NOT NULL,
         category TEXT NOT NULL
       );
-      CREATE TABLE carts (
+      CREATE TABLE orders (
         id SERIAL PRIMARY KEY,
         status varchar(255) NOT NULL,
-        cartQuantity INTEGER DEFAULT 0,
+        orderQuantity INTEGER DEFAULT 0,
         date VARCHAR(10),
         time VARCHAR(8), 
         total DECIMAL NOT NULL,
         userId INTEGER REFERENCES users(id)
       ); 
+      CREATE TABLE products_orders (
+        jointId SERIAL PRIMARY KEY,
+        productId INTEGER REFERENCES products(id),
+        orderId INTEGER REFERENCES carts(id),
+        quantity INTEGER NOT NULL,
+        unitPrice DECIMAL NOT NULL
+      );
     `)
 
     // Add tables as you need them (A good place to start is Products and Orders
@@ -88,8 +97,6 @@ async function createInitialUsers() {
   }
 }
 
-
-
 async function createInitialProducts() {
   try{
     const productsToCreate = [
@@ -107,20 +114,38 @@ async function createInitialProducts() {
   }
 }
 
-async function createInitialCarts() {
-  console.log('Starting to create carts...')
+async function createInitialOrders() {
+  console.log('Starting to create orders...')
   try {
-    const cartsToCreate = [
-      { status: 'stock', cartQuantity: '1', date: '6/6/21', total: '19.99', userId: '2' },
-      { status: 'stock', cartQuantity: '2', date: '7/1/21', total: '29.99', userId: '1' },
+    const ordersToCreate = [
+      { status: 'stock', orderQuantity: '1', date: '', time: '', total: '19.99', userId: '2' },
+      { status: 'stock', orderQuantity: '2', date: '', time: '', total: '29.99', userId: '1' },
     ]
-    const carts = await Promise.all(cartsToCreate.map(createCarts))
+    const orders = await Promise.all(ordersToCreate.map(createOrders))
 
-    console.log('Carts created:')
-    console.log(carts)
-    console.log('Finished creating carts!')
+    console.log('Orders created:')
+    console.log(orders)
+    console.log('Finished creating orders!')
   } catch (error) {
-    console.error('Error creating carts!')
+    console.error('Error creating orders!')
+    throw error
+  }
+}
+
+async function createInitialProductsInOrders() {
+  console.log('Starting to create products in orders...')
+  try {
+    const productsOrdersToCreate = [
+      { productId:'2', orderId:'1', quantity:'4', unitPrice: '19.67' },
+      { productId:'1', orderId:'2', quantity:'3', unitPrice: '29.99' },
+    ]
+    const products_orders = await Promise.all(productsOrdersToCreate.map(createProductToOrders))
+
+    console.log('Producta in orders created:')
+    console.log(products_orders)
+    console.log('Finished creating products in orders!')
+  } catch (error) {
+    console.error('Error creating products in orders!')
     throw error
   }
 }
@@ -136,7 +161,8 @@ async function rebuildDB() {
     // create other data
 
     await createInitialProducts()
-    await createInitialCarts()
+    await createInitialOrders()
+    await createInitialProductsInOrders()
 
   } catch (error) {
     console.log('Error during rebuildDB')

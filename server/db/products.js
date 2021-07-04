@@ -19,70 +19,69 @@ async function createProduct({name,description,price,category})
   }
 };
 
-// async function getAllProducts(){
-//   try{
-//     const{ rows } = await client.query(`
-//     SELECT *
-//     FROM products;
+async function getAllProducts(){
+  try{
+    const{ rows } = await client.query(`
+    SELECT *
+    FROM products;
     
-//     `);
-//     return rows
-//   }catch(error){
-//     throw error;
-//   }
-// }
+    `);
+    return rows
+  }catch(error){
+    throw error;
+  }
+}
 
 
-
-// async function getProduct(id){
-//   try{
-//     const {rows : [ product ]} = await client.query(`
-//     SELECT *
-//     FROM products
-//     WHERE id=${ id }
+async function getProduct(id){
+  try{
+    const {rows : [ product ]} = await client.query(`
+    SELECT *
+    FROM products
+    WHERE id=${ id }
     
     
-//     `);
-//     return product
-//   }catch(error){
-//     throw error;
-//   }
-// }
+    `);
+    return product
+  }catch(error){
+    throw error;
+  }
+}
 
 
 
-// async function updateProduct(id, fields = {}){
-//   const setString = Object.keys(fields).map(
-//     (key, index) => `"${ key }"=$${ index +1}`
-//   ).join(', ');
+async function updateProduct(id, fields = {}){
+  const setString = Object.keys(fields).map(
+    (key, index) => `"${ key }"=$${ index +1}`
+  ).join(', ');
 
-//   if (setString.length === 0){
-//     return;
-//   }
-//   try{
-//     const { rows: [ product ] } = await client.query(`
-//     UPDATE products
-//     SET ${ setString }
-//     WHERE id=${ id }
-//     RETURNING *;
-//     `, Object.values(fields));
+  if (setString.length === 0){
+    return;
+  }
+  try{
+    const { rows: [ product ] } = await client.query(`
+    UPDATE products
+    SET ${ setString }
+    WHERE id=${ id }
+    RETURNING *;
+    `, Object.values(fields));
 
-//     return product
-//   }catch(error){
-//     throw error
-//   }
-// }
+    return product
+  }catch(error){
+    throw error
+  }
+}
 
-// async function destroyProduct(id){
-//   try{
-//     await client.query(`
-//     DELETE FROM products
-//     WHERE id=${ id };
-//     `, [id]);
-//   }catch(error){
-//     throw error;
-//   }
-// }
+async function destroyProduct(id){
+  try{
+    await client.query(`
+    DELETE FROM products
+    WHERE id=${ id };
+    `, [id]);
+  }catch(error){
+    throw error;
+  }
+}
 
 
 
@@ -90,10 +89,10 @@ async function createProduct({name,description,price,category})
 
 
 module.exports = {
-  // getAllProducts,
-  // getProduct,
-  createProduct
-  // updateProduct,
-  // destroyProduct
+  getAllProducts,
+  getProduct,
+  createProduct,
+  updateProduct,
+  destroyProduct
 
 }
