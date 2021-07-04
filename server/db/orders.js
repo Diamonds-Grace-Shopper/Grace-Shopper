@@ -160,6 +160,8 @@ async function createProductToOrders({ productId, orderId, quantity, unitPrice }
 	  `,
 		[productId, orderId, quantity, unitPrice]
 	  )
+	  	order.unitPrice = parseFloat(order.unitPrice);
+
 	  return order
 	} catch (error) {
 	  throw error
