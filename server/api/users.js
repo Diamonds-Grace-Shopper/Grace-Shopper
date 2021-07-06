@@ -42,7 +42,7 @@ router.post('/login', async (req, res, next) => {
 // POST /api/users/register
 router.post('/register', async (req, res, next) => {
   try {
-    const { username, password } = req.body
+    const { username, password, email, shippingAddress } = req.body
     const queriedUser = await getUserByUsername(username)
     if (queriedUser) {
       res.status(401)
@@ -54,6 +54,8 @@ router.post('/register', async (req, res, next) => {
       const user = await createUser({
         username,
         password,
+        email,
+        shippingAddress
       })
       if (!user) {
         next({
