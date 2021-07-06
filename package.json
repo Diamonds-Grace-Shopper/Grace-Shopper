@@ -47,9 +47,5 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Diamonds-Grace-Shopper/Grace-Shopper.git"
-  },
-  "bugs": {
-    "url": "https://github.com/Diamonds-Grace-Shopper/Grace-Shopper/issues"
-  },
-  "homepage": "https://github.com/Diamonds-Grace-Shopper/Grace-Shopper#readme"
+  }
 }
