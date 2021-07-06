@@ -138,12 +138,12 @@ async function createInitialProductsInOrders() {
   console.log('Starting to create products in orders...')
   try {
     const productsOrdersToCreate = [
-      { productId:'2', orderId:'1', quantity:'4', unitPrice: 19.67 },
-      { productId:'1', orderId:'2', quantity:'3', unitPrice: 29.99 },
+      { productId:'2', orderId:'1', quantity:'4', unitPrice: '19.67' },
+      { productId:'1', orderId:'2', quantity:'3', unitPrice: '29.99' },
     ]
     const products_orders = await Promise.all(productsOrdersToCreate.map(createProductToOrders))
 
-    console.log('Producta in orders created:')
+    console.log('Products in orders created:')
     console.log(products_orders)
     console.log('Finished creating products in orders!')
   } catch (error) {
