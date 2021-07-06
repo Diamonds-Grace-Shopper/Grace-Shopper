@@ -1,7 +1,7 @@
 {
   "name": "gs-uic-template",
   "version": "1.0.0",
-  "description": "",
+  "description": "## ------- [WORK IN PROGRESSS] -------------",
   "main": "server/index.js",
   "proxy": "http://localhost:4000",
   "scripts": {
@@ -42,5 +42,13 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Diamonds-Grace-Shopper/Grace-Shopper.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Diamonds-Grace-Shopper/Grace-Shopper/issues"
+  },
+  "homepage": "https://github.com/Diamonds-Grace-Shopper/Grace-Shopper#readme"
 }
