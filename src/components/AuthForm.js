@@ -6,6 +6,8 @@ function AuthForm(props) {
   let { type, setUser } = props // type of auth form (login or signup) and isLoggedIn Function
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
+  const [email, setEmail] = useState('')
+  const [shippingAddress, setShippingAddress] = useState('')
 
   async function handleSubmit(evt) {
     evt.preventDefault()
@@ -17,10 +19,12 @@ function AuthForm(props) {
         let data =
           type === 'login'
             ? await login(username, password)
-            : await register(username, password)
+            : await register(username, password, email, shippingAddress)
         if (data.user) {
           await setUsername('')
           await setPassword('')
+          await setEmail('')
+          await setShippingAddress('')
           await setUser(data.user)
           props.history.push('/home') // send it home
         }
@@ -50,6 +54,26 @@ function AuthForm(props) {
           type='text'
           placeholder='Type your password'
           onChange={(evt) => setPassword(evt.target.value)}
+        />
+      </div>
+      <div>
+        <label htmlFor='email'>Email:</label>
+        <input
+          id='email'
+          value={email}
+          type='text'
+          placeholder='Type your email'
+          onChange={(evt) => setEmail(evt.target.value)}
+        />
+      </div>
+      <div>
+        <label htmlFor='shippingAddress'>Shipping Address:</label>
+        <input
+          id='shipping-address'
+          value={shippingAddress}
+          type='text'
+          placeholder='Type your shipping address'
+          onChange={(evt) => setShippingAddress(evt.target.value)}
         />
       </div>
       <button type='submit'>{type === 'login' ? 'Login' : 'Register'}</button>
