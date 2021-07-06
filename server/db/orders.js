@@ -160,7 +160,7 @@ async function createProductToOrders({ productId, orderId, quantity, unitPrice }
 	  `,
 		[productId, orderId, quantity, unitPrice]
 	  )
-	  	order.unitPrice = parseFloat(order.unitPrice);
+	  	order.unitprice = parseFloat(order.unitprice);
 
 	  return order
 	} catch (error) {
@@ -168,47 +168,7 @@ async function createProductToOrders({ productId, orderId, quantity, unitPrice }
 	}
   };
 
-// async function addProductToOrder({ userId, productId, orderId, quantity, unitPrice }) {
-	
-// 	try {
-// 		const itemTotal = quantity * unitPrice;
-// 		await client.query(
-// 			`
-//               INSERT INTO products_orders ("productId", "orderId", quantity, "unitPrice", "itemTotal")
-//               VALUES ($1, $2, $3, $4, $5)
-//               RETURNING *;
-//           `,
-// 			[productId, orderId, quantity, unitPrice, itemTotal],
-// 		);
-// 		const order = await getActiveOrder(userId);
-		
-// 		let total = 0;
-// 		let orderQuantity = 0;
-// 		order.items.map((item) => {
-// 			total = total + item.itemTotal;
-// 			orderQuantity = orderQuantity + item.quantity;
-// 		});
 
-// 		await client.query(
-// 			`
-//             UPDATE orders
-//             SET total=$1,
-//             orderQuantity=$2
-//             WHERE id=$3
-//             RETURNING *;
-//         `,
-// 			[total, orderQuantity, orderId],
-// 		);
-
-// 		await lastUpdated(orderId);
-
-// 		const newOrder = await getActiveOrder(userId);
-
-// 		return newOrder;
-// 	} catch (error) {
-// 		throw error;
-// 	}
-// }
 async function getProductsOrderForAOrderId(id) {
 	try {
 		const { rows: items } = await client.query(
@@ -488,7 +448,7 @@ async function getSalesReport() {
 			sum(orderQuantity) AS orderQuantity, 
 			sum(total) AS total
 			FROM orders
-			WHERE date LIKE '2020%'
+			WHERE date LIKE '2021%'
 			AND status = 'processing' 
 			OR status = 'complete'
 			GROUP BY date;
