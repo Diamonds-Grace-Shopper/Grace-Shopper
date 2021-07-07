@@ -3,7 +3,12 @@ import Navbar from './components/Navbar'
 import Routes from './Routes'
 import { checkLogin } from './utils'
 import './index.css'
-import data from './data'
+
+import { BrowserRouter, Route } from 'react-router-dom'
+import HomeScreen from './screens/HomeScreen'
+import ProductScreen from './screens/ProductScreen'
+
+
 
 function App() {
   const [user, setUser] = useState({})
@@ -18,36 +23,18 @@ function App() {
     setLogIn()
   }, [])
   return (
+
+    <BrowserRouter>
     <div className='App'>
       <Navbar user={user} setUser={setUser} />
       <Routes user={user} setUser={setUser} />
+
       <div className="grid-container">
   
         <main>
-            <div className="row center">
-              {
-                data.products.map(product =>(
-                  <div key={product._id} className="card">
-                    <a href={`/product/${product._id}`}>
-                        <img className="medium" src={product.image} alt={product.image} />
-                    </a>
-                    <div className="card-body">
-                      <a href={`/product/${product._id}`}>
-                            <h2 className='productname'>{product.name}</h2>
-                            
-                        </a>
-                        <div className="price">
-                            ${product.price}
-                        </div>
-                    </div>
-                </div>
-
-                ))
-              }
-                
-                
-            </div>
-    
+          <Route path="/product/:id" component={ProductScreen} exact></Route>
+          <Route path="/" component={HomeScreen} exact></Route>
+            
         </main>
         <footer className="row center">
             All right reserved
@@ -55,6 +42,7 @@ function App() {
         </footer>
     </div>
     </div>
+    </BrowserRouter>
   )
 }
 
