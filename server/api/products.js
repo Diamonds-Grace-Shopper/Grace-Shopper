@@ -14,11 +14,32 @@ const { useState } = require('react');
 
 const router = express.Router();
 
-app.get('/', getAllProducts( req, res ))
-
-useState( () => {
-    const fetchProducts = async () => {
-        const res = await fetch('./db/seedData')
-    }
+app.get('/', (req, res) => {
+    res.send( getAllProducts)
 })
+
+app.get('/', (req, res) => {
+    res.send( getProduct )
+})
+
+app.get('/', (req, res) => {
+    res.send( createProduct)
+})
+
+app.get('/', (req, res) => {
+    res.send( updateProduct )
+})
+
+app.get('/', (req, res) => {
+    
+    res.send( destroyProduct )
+})
+
+
+
+// useState( () => {
+//     const fetchProducts = async () => {
+//         const res = await fetch('./db/seedData')
+//     }
+// })
 
