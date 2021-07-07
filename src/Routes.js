@@ -20,6 +20,12 @@ function Routes(props) {
           <AuthForm type='register' {...props} setUser={setUser} />
         )}
       />
+      {/*<Route
+        path='/orders'
+        render={(props) => (
+          <AuthForm type='orders' {...props} setUser={setUser} />
+        )}
+        />*/}
       <Route path='/home' component={Home} />
 
       <Route path='/' component={Landing} />
