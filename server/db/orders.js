@@ -2,17 +2,18 @@ const client = require('./client');
 
 const LIMIT = 20
 
-async function createOrders({ status, orderQuantity, date, time, total, userId }) {
+//might scrap this function?
+async function addToOrder({ productId, orderid, quantity, unitPrice }) {
 	try {
 	  const {
 		rows: [order],
 	  } = await client.query(
 		`
-		INSERT INTO orders(status, orderQuantity, date, time, total, userId) 
+		INSERT INTO product_orders(orderQuantity, date, time, total, userId) 
 		VALUES ($1, $2, $3, $4, $5, $6)
 		RETURNING *;
 	  `,
-		[status, orderQuantity, getDate().date, getDate().time, total, userId]
+		[orderQuantity, getDate().date, getDate().time, total, userId]
 	  )
 	  
 	  order.total = parseFloat(order.total);
@@ -148,7 +149,7 @@ async function getActiveOrderAlone(userId) {
 	}
 }
 
-async function createProductToOrders({ productId, orderId, quantity, unitPrice }) {
+async function addProductToOrder({ productId, orderId, quantity, unitPrice }) {
 	try {
 	  const {
 		rows: [order],
@@ -460,15 +461,29 @@ async function getSalesReport() {
 	}
 }
 
+async function getOrderByUserId(userId) {
+	try {
+		const { rows } = await client.query(`
+			SELECT *
+			FROM orders
+			WHERE userid = ${userId};
+		`, [userId])
+
+		return rows
+	} catch (error) {
+		console.error
+	}
+}
+
 module.exports = {
-	createOrders,
+	//addToOrder,
     getOrderHistoryStatus,
 	getOrderHistoryStatusAdmin,
 	getProcessingOrders,
     getUserById,
 	getActiveOrder,
 	getActiveOrderAlone,
-	createProductToOrders,
+	addProductToOrder,
 	getAllProductsorder,
 	getProductsOrderForAOrderId,
 	removeProductFromOrder,
@@ -478,5 +493,5 @@ module.exports = {
 	getUserOrderHistory,
 	getOrderHistory,
 	getSalesReport,
-	
+	getOrderByUserId	
 }

@@ -1,9 +1,10 @@
 const express = require('express')
 const router = express.Router()
 //import functions from db
+const { addProductToOrder, getOrderByUserId } = require('../db')
 
 //testing route
-router.get('/', (req, res, next) => {
+/*router.get('/', (req, res, next) => {
     try {
         res.send({
             message: 'orders'
@@ -11,25 +12,26 @@ router.get('/', (req, res, next) => {
     } catch (error) {
         next(error)
     }
-})
+}) */
 
-//GET /api/orders/:orderId
-router.get('/:orderId', (req, res, next) => {
+//GET /api/orders/
+router.get('/', async (req, res, next) => {
     //call function getOrder(userId) and res.send it
+    const { userid } = req.body
+
     try {
-        res.send({
-            message: 'orders'
-        })
+        const order = await getOrderByUserId({ userid })
+        res.send({order})
     } catch (error) {
         next(error)
     }
 })
 
 //POST /api/orders/:orderId
-router.post('/:orderId', (req, res, next) => {
+router.post('/:orderId', async (req, res, next) => {
     //call function getProductById(productId)?
     try {
-        //function addProductToOrders(productId)
+        const product = await addProductToOrder(productId, orderId, quantity, unitPrice)
         res.send({
             message: 'orders'
         })

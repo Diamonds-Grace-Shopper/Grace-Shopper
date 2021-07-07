@@ -28,6 +28,7 @@ export async function checkLogin() {
   try {
     let { data } = await axios.get('/api/users/me', setHeaders())
     // if data has an id and user the user is logged on
+    delete data.password
     return data
   } catch (err) {
     console.log('checkLogin(): User is not logged on.\n', err)
@@ -101,4 +102,36 @@ export async function register(username, password, email, shippingAddress) {
 
 function setToken(token) {
   localStorage.setItem('token', token)
+}
+
+/////////////////////////////
+
+export async function addToOrder(orderId, productId) {
+  try {
+    const { data } = await axios.post('/api/orders/:orderId', {
+      orderId,
+      productId
+    })
+
+    console.log('add to order', data)
+    return data 
+  } catch (error) {
+    console.error('addToOrder(): cant add', err)
+    return err
+  }
+}
+
+export async function getOrder(user) {
+  const userId = user.id
+
+  try {
+    const { data } = await axios.get('/api/orders', {
+      userId
+    })
+
+    //console.log('data', data)
+    return data
+  } catch (error) {
+    console.error('couldnt get order')
+  }
 }

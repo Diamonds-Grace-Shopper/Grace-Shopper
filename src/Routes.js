@@ -3,6 +3,7 @@ import { Switch, Route, withRouter } from 'react-router-dom'
 import Home from './components/Home'
 import AuthForm from './components/AuthForm'
 import Landing from './components/Landing'
+import Order from './components/Order'
 
 function Routes(props) {
   const { user, setUser } = props
@@ -20,12 +21,12 @@ function Routes(props) {
           <AuthForm type='register' {...props} setUser={setUser} />
         )}
       />
-      {/*<Route
-        path='/orders'
+      <Route
+        path='/order'
         render={(props) => (
-          <AuthForm type='orders' {...props} setUser={setUser} />
+          <Order {...props} setUser={setUser} />
         )}
-        />*/}
+      />
       <Route path='/home' component={Home} />
 
       <Route path='/' component={Landing} />

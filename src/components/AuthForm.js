@@ -21,10 +21,10 @@ function AuthForm(props) {
             ? await login(username, password)
             : await register(username, password, email, shippingAddress)
         if (data.user) {
-          await setUsername('')
-          await setPassword('')
-          await setEmail('')
-          await setShippingAddress('')
+          setUsername('')
+          setPassword('')
+          setEmail('')
+          setShippingAddress('')
           await setUser(data.user)
           props.history.push('/home') // send it home
         }

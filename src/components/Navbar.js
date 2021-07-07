@@ -25,7 +25,7 @@ function Navbar({ user, setUser, history }) {
           <div>
             <NavLink to='/login'>Login</NavLink>
             <NavLink to='/signup'>Sign Up</NavLink>
-            <NavLink to='/orders'>Cart/Order</NavLink>
+            <NavLink to='/order'>Cart/Order</NavLink>
           </div>
         )}
       </nav>
