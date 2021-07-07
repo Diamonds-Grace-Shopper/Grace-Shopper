@@ -2,27 +2,24 @@ const client = require('./client');
 
 const LIMIT = 20
 
-//might scrap this function?
-async function addToOrder({ productId, orderid, quantity, unitPrice }) {
+async function createOrder({ userId }) {
 	try {
 	  const {
 		rows: [order],
 	  } = await client.query(
 		`
-		INSERT INTO product_orders(orderQuantity, date, time, total, userId) 
-		VALUES ($1, $2, $3, $4, $5, $6)
+		INSERT INTO orders("userid") 
+		VALUES ($1)
 		RETURNING *;
 	  `,
-		[orderQuantity, getDate().date, getDate().time, total, userId]
+		[userId]
 	  )
-	  
-	  order.total = parseFloat(order.total);
 	  
 	  return order
 	} catch (error) {
 	  throw error
 	}
-  };
+};
 
 async function getOrderHistoryStatus(id) {
 	try {
@@ -461,22 +458,22 @@ async function getSalesReport() {
 	}
 }
 
-async function getOrderByUserId(userId) {
+async function getOrderByUserId({userId}) {
 	try {
 		const { rows } = await client.query(`
 			SELECT *
 			FROM orders
-			WHERE userid = ${userId};
+			WHERE "userid" = ${userId};
 		`, [userId])
 
 		return rows
 	} catch (error) {
-		console.error
+		console.error('could not get order by id')
 	}
 }
 
 module.exports = {
-	//addToOrder,
+	createOrder,
     getOrderHistoryStatus,
 	getOrderHistoryStatusAdmin,
 	getProcessingOrders,

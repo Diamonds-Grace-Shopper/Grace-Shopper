@@ -92,6 +92,7 @@ export async function register(username, password, email, shippingAddress) {
     if (data.token) {
       setToken(data.token)
     }
+
     return data
   } catch (err) {
     console.error('register(): Unable to register user.\n', err)
@@ -105,6 +106,18 @@ function setToken(token) {
 }
 
 /////////////////////////////
+
+export async function createOrder(userId) {
+  try {
+    const { data } = await axios.post('/api/orders', {
+      userId
+    })
+    console.log('utils', data)
+    return rows
+  } catch (error) {
+    console.error
+  }
+}
 
 export async function addToOrder(orderId, productId) {
   try {
@@ -125,11 +138,11 @@ export async function getOrder(user) {
   const userId = user.id
 
   try {
-    const { data } = await axios.get('/api/orders', {
+    const { data } = await axios.get('/api/orders/:orderId', {
       userId
     })
 
-    //console.log('data', data)
+    console.log('getOrder', data)
     return data
   } catch (error) {
     console.error('couldnt get order')
