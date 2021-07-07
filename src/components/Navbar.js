@@ -9,8 +9,8 @@ function Navbar({ user, setUser, history }) {
   }
 
   return (
-    <div>
-      <h1>App Template</h1>
+    <div className='header'>
+      <h1 className='brand'>Nice To Meat You</h1>
       <nav>
         {user.id ? (
           <div>
