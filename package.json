@@ -29,7 +29,7 @@
     "react-router-dom": "^5.2.0"
   },
   "devDependencies": {
-    "nodemon": "^2.0.7",
+    "nodemon": "^2.0.9",
     "react-scripts": "^4.0.3"
   },
   "browserslist": {
@@ -47,9 +47,5 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Diamonds-Grace-Shopper/Grace-Shopper.git"
-  },
-  "bugs": {
-    "url": "https://github.com/Diamonds-Grace-Shopper/Grace-Shopper/issues"
-  },
-  "homepage": "https://github.com/Diamonds-Grace-Shopper/Grace-Shopper#readme"
+  }
 }
