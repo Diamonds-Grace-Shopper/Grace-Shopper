@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const jwt = require('jsonwebtoken')
-const { createUser, getUser, getUserByUsername, getUserById } = require('../db')
+const { createUser, getUser, getUserByUsername, getOrderByUserId } = require('../db')
 const SALT_COUNT = 10
 const { JWT_SECRET = 'neverTell' } = process.env
 
@@ -85,9 +85,14 @@ router.get('/me', (req, res, next) => {
   }
 })
 
-router.get('/', (req, res, next) => {
+router.get('/:id/orders', async (req, res, next) => {
   try {
-    res.send({message: 'users'})
+    const { id } = req.params
+    //console.log('cons', req.params.id)
+    const order = await getOrderByUserId(id)
+    //console.log('params check', id)
+    console.log('order', order)
+    res.send({order})
   } catch (error) {
     next(error)
   }

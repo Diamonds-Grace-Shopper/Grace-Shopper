@@ -8,7 +8,7 @@ async function createOrder({ userId }) {
 		rows: [order],
 	  } = await client.query(
 		`
-		INSERT INTO orders("userid") 
+		INSERT INTO orders("userId") 
 		VALUES ($1)
 		RETURNING *;
 	  `,
@@ -131,8 +131,8 @@ async function getActiveOrderAlone(userId) {
 		const {
 			rows: [activeOrder],
 		} = await client.query(
-			`
-          SELECT * FROM orders 
+		  `
+    	  SELECT * FROM orders 
           WHERE status = 'active' AND userId = $1;
           `,
 			[userId],
@@ -152,17 +152,16 @@ async function addProductToOrder({ productId, orderId, quantity, unitPrice }) {
 		rows: [order],
 	  } = await client.query(
 		`
-		INSERT INTO products_orders( productId, orderId, quantity, unitPrice) 
+		INSERT INTO products_orders("productId", "orderId", quantity, "unitPrice") 
 		VALUES ($1, $2, $3, $4)
 		RETURNING *;
-	  `,
+		`,
 		[productId, orderId, quantity, unitPrice]
 	  )
-	  	order.unitprice = parseFloat(order.unitprice);
 
 	  return order
 	} catch (error) {
-	  throw error
+	  console.error('post query not working')
 	}
   };
 
@@ -458,13 +457,15 @@ async function getSalesReport() {
 	}
 }
 
-async function getOrderByUserId({userId}) {
+async function getOrderByUserId(id) {
+	//console.log('orderbyuserid', id)
+
 	try {
 		const { rows } = await client.query(`
 			SELECT *
 			FROM orders
-			WHERE "userid" = ${userId};
-		`, [userId])
+			WHERE "userId" = ${id};
+		`)
 
 		return rows
 	} catch (error) {

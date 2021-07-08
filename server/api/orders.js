@@ -15,12 +15,12 @@ router.get('/', (req, res, next) => {
 })
 
 //GET /api/orders/
-/*router.get('/:orderId', async (req, res, next) => {
+/*router.get('/', async (req, res, next) => {
     //call function getOrder(userId) and res.send it
-    //const { userid } = req.params
+    const { userId } = req.params
 
     try {
-        const order = await getOrderByUserId({ userid })
+        const order = await getOrderByUserId({ userId })
 
         res.send({order})
     } catch (error) {
@@ -35,24 +35,21 @@ router.post('/', async (req, res, next) => {
 
     try {
         const order = await createOrder({userId})
-        res.send({order})
+        res.send(order)
     } catch (error) {
         console.error('couldnt make order')
     }
 }) 
 
-//POST /api/orders/:orderId
-//
-router.post('/:orderId', async (req, res, next) => {
-    //call function getProductById(productId)?
-    const { userId } = req.body
-
+//POST /api/orders/:order
+//add product to products_orders
+router.post('/:order', async (req, res, next) => {
+    const { productId, orderId, quantity, unitPrice } = req.body
+    
     try {
-        const order = await getOrderByUserId({ userId })
-
-        //const product = await addProductToOrder(productId, orderId, quantity, unitPrice)
+        const product = await addProductToOrder({productId, orderId, quantity, unitPrice})
         res.send({
-            message: order
+            product
         })
     } catch (error) {
         next(error)

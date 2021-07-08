@@ -2,7 +2,7 @@
 const { createUser } = require('./')
 const { createProduct } = require('./products')
 const { createOrder } = require('./orders')
-const { createProductToOrders } = require('./orders')
+const { addProductToOrder } = require('./orders')
 const client = require('./client')
 
 async function dropTables() {
@@ -45,15 +45,14 @@ async function createTables() {
       );
       CREATE TABLE orders (
         id SERIAL PRIMARY KEY,
-        orderQuantity INTEGER DEFAULT 0,
-        userId INTEGER REFERENCES users(id)
+        "userId" INTEGER REFERENCES users(id)
       ); 
       CREATE TABLE products_orders (
-        jointId SERIAL PRIMARY KEY,
-        productId INTEGER REFERENCES products(id),
-        orderId INTEGER REFERENCES orders(id),
+        id SERIAL PRIMARY KEY,
+        "productId" INTEGER REFERENCES products(id),
+        "orderId" INTEGER REFERENCES orders(id),
         quantity INTEGER NOT NULL,
-        unitPrice DECIMAL NOT NULL
+        "unitPrice" DECIMAL NOT NULL
       );
     `)
 
@@ -137,7 +136,7 @@ async function createInitialProductsInOrders() {
       { productId:'2', orderId:'1', quantity:'4', unitPrice: '19.67' },
       { productId:'1', orderId:'2', quantity:'3', unitPrice: '29.99' },
     ]
-    const products_orders = await Promise.all(productsOrdersToCreate.map(createProductToOrders))
+    const products_orders = await Promise.all(productsOrdersToCreate.map(addProductToOrder))
 
     console.log('Products in orders created:')
     console.log(products_orders)

@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import axios from 'axios'
 import { login, register, createOrder } from '../utils'
 
+//order is created every login/register instead of just register 
 function AuthForm(props) {
   let { type, setUser } = props // type of auth form (login or signup) and isLoggedIn Function
   const [username, setUsername] = useState('')
@@ -21,8 +22,6 @@ function AuthForm(props) {
             ? await login(username, password)
             : await register(username, password, email, shippingAddress)
         if (data.user) {
-          console.log('data', data)
-          console.log('user id', data.user.id)
           await createOrder(data.user.id)
           setUsername('')
           setPassword('')

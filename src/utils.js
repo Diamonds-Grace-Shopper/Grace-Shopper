@@ -106,20 +106,19 @@ function setToken(token) {
 }
 
 /////////////////////////////
-
 export async function createOrder(userId) {
   try {
     const { data } = await axios.post('/api/orders', {
       userId
     })
     console.log('utils', data)
-    return rows
+    return data
   } catch (error) {
     console.error
   }
 }
 
-export async function addToOrder(orderId, productId) {
+/*export async function addToOrder(orderId, productId) {
   try {
     const { data } = await axios.post('/api/orders/:orderId', {
       orderId,
@@ -132,19 +131,35 @@ export async function addToOrder(orderId, productId) {
     console.error('addToOrder(): cant add', err)
     return err
   }
-}
+} */
 
 export async function getOrder(user) {
-  const userId = user.id
-
+  const id = user.id
+  //console.log('utils', id)
   try {
-    const { data } = await axios.get('/api/orders/:orderId', {
-      userId
-    })
+    const { data } = await axios.get(`/api/users/${id}/orders`)
 
-    console.log('getOrder', data)
+    //console.log('getOrder', data)
     return data
   } catch (error) {
     console.error('couldnt get order')
+  }
+}
+
+export async function addProductToOrder(productId, orderId, quantity, unitPrice) {
+  productId = Number(productId)
+  unitPrice = Number(unitPrice)
+
+  try {
+    console.log('parameters', productId, orderId, quantity, unitPrice)
+    const { data } = await axios.post(`/api/orders/${orderId}`, {
+      productId,
+      orderId,
+      quantity,
+      unitPrice
+    })
+    return data
+  } catch (error) {
+    console.error('can not add to cart')
   }
 }

@@ -12,13 +12,12 @@ export default function ProductScreen(props){
     event.preventDefault()
 
     try {
-      const user = await checkLogin() //might need to switch this out later
-      //await addToOrder(product._id)
-      console.log('product id', product._id)
-      console.log('user id', user.id)
+      const user = await checkLogin()
       const order = await getOrder(user)
-      console.log('order', order)
-      //console.log('user id')
+      const productId = product._id
+      const orderId = order.order[0].id
+      const productToAdd = await addProductToOrder(productId, orderId, 1, '1.99')
+      console.log('product', productToAdd)
     } catch (error) {
       console.error
     }

@@ -14,11 +14,4 @@ const { useState } = require('react');
 
 const router = express.Router();
 
-app.get('/', getAllProducts( req, res ))
-
-useState( () => {
-    const fetchProducts = async () => {
-        const res = await fetch('./db/seedData')
-    }
-})
 
