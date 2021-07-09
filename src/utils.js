@@ -151,3 +151,16 @@ export async function addProductToOrder(productId, orderId, quantity, unitPrice)
     console.error('can not add to cart')
   }
 }
+
+export async function removeProductFromOrder(productId, orderId) {
+  try {
+    const { data } = await axios.delete(`/api/orders/${orderId}`, {
+      productId,
+      orderId
+    })
+    console.log('product delete', data)
+    return data
+  } catch (error) {
+    console.error('could not delete product')
+  }
+}

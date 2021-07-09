@@ -207,48 +207,15 @@ async function getAllProductsorder() {
 	}
 }
 
-async function removeProductFromOrder({ userId, orderId, products_ordersId }) {
+async function deleteProductFromOrder({ productId, orderId }) {
 	try {
-		const deleted = await client.query(
-			`
+		const deleted = await client.query(`
             DELETE FROM products_orders
-            WHERE jointId=$1;
-        `,
-			[products_ordersId],
-		);
-
-		const order = await getActiveOrder(userId);
-
-		let total = 0;
-		let orderQuantity = 0;
-		order.items.forEach((item) => {
-			total = total + item.itemTotal;
-			orderQuantity = orderQuantity + item.quantity;
-		});
-
-		const { rows: newUpdatedCart } = await client.query(
-			`
-            UPDATE orders
-            SET total=$1,
-            orderQuantity=$2
-            WHERE id=$3
-            RETURNING *;
-        `,
-			[total, orderQuantity, orderId],
-		);
-
-		await lastUpdated(orderId);
-
-		const newOrder = await getActiveOrder(userId);
-
-		if (newOrder) {
-			return newOrder;
-		} else {
-			return {};
-		}
+            WHERE "productId" = ${productId} AND "orderId" = ${orderId};
+        `)
 	} catch (error) {
 		throw error;
-	}
+    }   
 }
 
 async function updateProductQuantity({ userId, jointId, quantity, unitPrice }) {
@@ -484,7 +451,7 @@ module.exports = {
 	addProductToOrder,
 	getAllProductsorder,
 	getProductsOrderForAOrderId,
-	removeProductFromOrder,
+	deleteProductFromOrder,
 	deactivateOrder,
 	updateProductQuantity,
 	completeOrder,
