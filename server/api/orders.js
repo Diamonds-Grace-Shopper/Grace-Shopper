@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 //import functions from db
-const { createOrder, addProductToOrder, getOrderByUserId, deleteProductFromOrder } = require('../db')
+const { createOrder, addProductToOrder, deleteProductFromOrder, getProductsByOrderId } = require('../db')
 
 //testing route
 router.get('/', (req, res, next) => {
@@ -14,19 +14,19 @@ router.get('/', (req, res, next) => {
     }
 })
 
-//GET /api/orders/
-/*router.get('/', async (req, res, next) => {
-    //call function getOrder(userId) and res.send it
-    const { userId } = req.params
+//GET /api/orders/:order
+router.get('/:order', async (req, res, next) => {
+    const { order } = req.params
 
     try {
-        const order = await getOrderByUserId({ userId })
+        const productsInOrder = await getProductsByOrderId(order)
 
-        res.send({order})
+        res.send({ productsInOrder })
     } catch (error) {
+        console.error('GET api')
         next(error)
     }
-}) */
+})
 
 //create an order for the user when account is first made
 router.post('/', async (req, res, next) => {
@@ -48,9 +48,7 @@ router.post('/:order', async (req, res, next) => {
     
     try {
         const product = await addProductToOrder({productId, orderId, quantity, unitPrice})
-        res.send({
-            product
-        })
+        res.send({ product })
     } catch (error) {
         next(error)
     }
@@ -61,9 +59,7 @@ router.delete('/:order', async (req, res, next) => {
 
     try {
         const deletedProduct = await deleteProductFromOrder({productId, orderId})
-        res.send({
-            deletedProduct
-        })
+        res.send({ deletedProduct })
     } catch (error) {
         next(error)
     }

@@ -166,28 +166,17 @@ async function addProductToOrder({ productId, orderId, quantity, unitPrice }) {
   };
 
 
-async function getProductsOrderForAOrderId(id) {
+async function getProductsByOrderId(orderId) {
 	try {
-		const { rows: items } = await client.query(
-			`
-      SELECT *
-      FROM products_orders
-      JOIN products
-      ON products_orders.productId = products.id
-      WHERE products_orders.orderId=$1;
-    `,
-			[id],
-		);
-		if (items) {
-			items.forEach((item) => {
-				item.unitPrice = parseFloat(item.unitPrice);
-				item.itemTotal = parseFloat(item.itemTotal);
-			});
-			return items;
-		} else {
-			return [];
-		}
+	    const { rows } = await client.query(`
+            SELECT *
+            FROM products_orders
+            WHERE "orderId" = ${orderId};
+        `)
+
+        return rows
 	} catch (error) {
+        console.error('GET db', orderId)
 		throw error;
 	}
 }
@@ -213,6 +202,8 @@ async function deleteProductFromOrder({ productId, orderId }) {
             DELETE FROM products_orders
             WHERE "productId" = ${productId} AND "orderId" = ${orderId};
         `)
+
+        return deleted
 	} catch (error) {
 		throw error;
     }   
@@ -450,7 +441,7 @@ module.exports = {
 	getActiveOrderAlone,
 	addProductToOrder,
 	getAllProductsorder,
-	getProductsOrderForAOrderId,
+	getProductsByOrderId,
 	deleteProductFromOrder,
 	deactivateOrder,
 	updateProductQuantity,

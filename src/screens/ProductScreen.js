@@ -1,19 +1,17 @@
 import { React, useState } from 'react';
 import data from '../data'
-import { addProductToOrder, checkLogin, getOrder } from '../utils'
+import { addProductToOrder, checkLogin, getOrderByUserId } from '../utils'
 import Product from '../components/Product'
 
 
 
 export default function ProductScreen(props){
-  //const [product, setProduct] = useState('')
-
   async function handleSubmit(event) {
     event.preventDefault()
 
     try {
       const user = await checkLogin()
-      const order = await getOrder(user)
+      const order = await getOrderByUserId(user)
       const productId = product._id
       const orderId = order.order[0].id
       const productToAdd = await addProductToOrder(productId, orderId, 1, '1.99')

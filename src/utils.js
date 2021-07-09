@@ -121,7 +121,7 @@ export async function createOrder(userId) {
   }
 }
 
-export async function getOrder(user) {
+export async function getOrderByUserId(user) {
   const id = user.id
   //console.log('utils', id)
   try {
@@ -162,5 +162,15 @@ export async function removeProductFromOrder(productId, orderId) {
     return data
   } catch (error) {
     console.error('could not delete product')
+  }
+}
+
+export async function getProductsInOrder(orderId) {
+  try {
+    const { data } = await axios.get(`/api/orders/${orderId}`)
+
+    return data
+  } catch (error) {
+    console.error('could not get products in order')
   }
 }
