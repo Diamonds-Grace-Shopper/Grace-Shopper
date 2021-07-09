@@ -121,21 +121,6 @@ export async function createOrder(userId) {
   }
 }
 
-/*export async function addToOrder(orderId, productId) {
-  try {
-    const { data } = await axios.post('/api/orders/:orderId', {
-      orderId,
-      productId
-    })
-
-    console.log('add to order', data)
-    return data 
-  } catch (error) {
-    console.error('addToOrder(): cant add', err)
-    return err
-  }
-} */
-
 export async function getOrder(user) {
   const id = user.id
   //console.log('utils', id)
