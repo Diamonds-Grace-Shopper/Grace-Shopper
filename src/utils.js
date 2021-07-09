@@ -121,7 +121,7 @@ export async function createOrder(userId) {
   }
 }
 
-export async function getOrder(user) {
+export async function getOrderByUserId(user) {
   const id = user.id
   //console.log('utils', id)
   try {
@@ -149,5 +149,42 @@ export async function addProductToOrder(productId, orderId, quantity, unitPrice)
     return data
   } catch (error) {
     console.error('can not add to cart')
+  }
+}
+
+export async function removeProductFromOrder(productId, orderId) {
+  try {
+    const { data } = await axios.delete(`/api/orders/${orderId}`, {
+      productId,
+      orderId
+    })
+    console.log('product delete', data)
+    return data
+  } catch (error) {
+    console.error('could not delete product')
+  }
+}
+
+export async function changeProductQuantityInOrder(productId, orderId, quantity) { 
+  try {
+    const { data } = await axios.patch(`/api/orders/${orderId}`, {  
+      productId,
+      orderId,
+      quantity
+    })
+
+    return data
+  } catch (error) {
+    console.error('could not update cart')
+  }
+}
+
+export async function getProductsInOrder(orderId) {
+  try {
+    const { data } = await axios.get(`/api/orders/${orderId}`)
+
+    return data
+  } catch (error) {
+    console.error('could not get products in order')
   }
 }

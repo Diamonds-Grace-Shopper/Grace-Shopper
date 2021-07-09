@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 //import functions from db
-const { createOrder, addProductToOrder, getOrderByUserId } = require('../db')
+const { createOrder, addProductToOrder, deleteProductFromOrder, getProductsByOrderId, updateProductQuantityInOrder } = require('../db')
 
 //testing route
 router.get('/', (req, res, next) => {
@@ -14,19 +14,19 @@ router.get('/', (req, res, next) => {
     }
 })
 
-//GET /api/orders/
-/*router.get('/', async (req, res, next) => {
-    //call function getOrder(userId) and res.send it
-    const { userId } = req.params
+//GET /api/orders/:order
+router.get('/:order', async (req, res, next) => {
+    const { order } = req.params
 
     try {
-        const order = await getOrderByUserId({ userId })
+        const productsInOrder = await getProductsByOrderId(order)
 
-        res.send({order})
+        res.send({ productsInOrder })
     } catch (error) {
+        console.error('GET api')
         next(error)
     }
-}) */
+})
 
 //create an order for the user when account is first made
 router.post('/', async (req, res, next) => {
@@ -48,20 +48,29 @@ router.post('/:order', async (req, res, next) => {
     
     try {
         const product = await addProductToOrder({productId, orderId, quantity, unitPrice})
-        res.send({
-            product
-        })
+        res.send({ product })
     } catch (error) {
         next(error)
     }
 })
 
-router.delete('/:orderId', (req, res, next) => {
+router.delete('/:order', async (req, res, next) => {
+    const { productId, orderId } = req.body
+
     try {
-        //function deleteOrder(orderId)
-        res.send({
-            message: 'orders'
-        })
+        const deletedProduct = await deleteProductFromOrder({productId, orderId})
+        res.send({ deletedProduct })
+    } catch (error) {
+        next(error)
+    }
+})
+
+router.patch('/:order', async (req, res, next) => {
+    const { productId, orderId, quantity } = req.body
+
+    try {
+        const updatedProduct = await updateProductQuantityInOrder({ productId, orderId, quantity })
+        res.send({updatedProduct})
     } catch (error) {
         next(error)
     }
