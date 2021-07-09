@@ -165,6 +165,20 @@ export async function removeProductFromOrder(productId, orderId) {
   }
 }
 
+export async function changeProductQuantityInOrder(productId, orderId, quantity) { 
+  try {
+    const { data } = await axios.patch(`/api/orders/${orderId}`, {  
+      productId,
+      orderId,
+      quantity
+    })
+
+    return data
+  } catch (error) {
+    console.error('could not update cart')
+  }
+}
+
 export async function getProductsInOrder(orderId) {
   try {
     const { data } = await axios.get(`/api/orders/${orderId}`)

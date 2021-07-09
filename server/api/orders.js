@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 //import functions from db
-const { createOrder, addProductToOrder, deleteProductFromOrder, getProductsByOrderId } = require('../db')
+const { createOrder, addProductToOrder, deleteProductFromOrder, getProductsByOrderId, updateProductQuantityInOrder } = require('../db')
 
 //testing route
 router.get('/', (req, res, next) => {
@@ -60,6 +60,17 @@ router.delete('/:order', async (req, res, next) => {
     try {
         const deletedProduct = await deleteProductFromOrder({productId, orderId})
         res.send({ deletedProduct })
+    } catch (error) {
+        next(error)
+    }
+})
+
+router.patch('/:order', async (req, res, next) => {
+    const { productId, orderId, quantity } = req.body
+
+    try {
+        const updatedProduct = await updateProductQuantityInOrder({ productId, orderId, quantity })
+        res.send({updatedProduct})
     } catch (error) {
         next(error)
     }
