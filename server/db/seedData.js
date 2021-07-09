@@ -52,7 +52,8 @@ async function createTables() {
         "productId" INTEGER REFERENCES products(id),
         "orderId" INTEGER REFERENCES orders(id),
         quantity INTEGER NOT NULL,
-        "unitPrice" DECIMAL NOT NULL
+        "unitPrice" DECIMAL NOT NULL,
+        UNIQUE ("productId", "orderId")
       );
     `)
 
