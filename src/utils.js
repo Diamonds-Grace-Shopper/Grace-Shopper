@@ -102,3 +102,4 @@ export async function register(username, password, email, shippingAddress) {
 function setToken(token) {
   localStorage.setItem('token', token)
 }
+

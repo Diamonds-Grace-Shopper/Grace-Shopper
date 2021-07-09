@@ -1,7 +1,7 @@
 import React from 'react'
 
 export default function Product(props){
-  const { product } = props;
+  const { product, onAdd } = props;
   return(
     <div key={product._id} className="card">
       <a href={`/product/${product._id}`}>
@@ -14,6 +14,7 @@ export default function Product(props){
         </a>
         <div className="price">
           ${product.price}
+          <button className="primary block" onClick={() => onAdd(product)}>Add to Cart</button>
         </div>
       </div>
     </div>

@@ -1,5 +1,6 @@
 import React from 'react'
 import { NavLink, withRouter } from 'react-router-dom'
+import Cart from './Cart'
 
 function Navbar({ user, setUser, history }) {
   function handleLogout() {
@@ -25,9 +26,21 @@ function Navbar({ user, setUser, history }) {
           <div>
             <NavLink to='/login'>Login</NavLink>
             <NavLink to='/signup'>Sign Up</NavLink>
-            <NavLink to='/src/components/Cart.js'>Cart</NavLink>
+            <NavLink to='/cart'> Cart </NavLink>
           </div>
         )}
+        {/* <div>
+          <NavLink to='/src/components/Cart.js'>
+            <a href="#/cart">
+              Cart{' '}
+              {props.countCartItems ? (
+                <button className="badge">{props.countCartItems}</button>
+              ) : (
+                ''
+              )}
+            </a>{' '}
+          </NavLink>
+        </div> */}
       </nav>
     </div>
   )

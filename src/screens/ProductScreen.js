@@ -5,6 +5,7 @@ import Product from '../components/Product'
 
 
 export default function ProductScreen(props){
+  const { onAdd } = props;
   const product = data.products.find((x) => x._id === props.match.params.id);
   if(!product){
     return <div>Product Not Found</div>
@@ -38,7 +39,6 @@ export default function ProductScreen(props){
               </div>
             </li>
             <li>
-              <button className="primary block">Add to Cart</button>
             </li>
 
           </ul>
