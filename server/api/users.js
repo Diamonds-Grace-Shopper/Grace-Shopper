@@ -88,9 +88,7 @@ router.get('/me', (req, res, next) => {
 router.get('/:id/orders', async (req, res, next) => {
   try {
     const { id } = req.params
-    //console.log('cons', req.params.id)
     const order = await getOrderByUserId(id)
-    //console.log('params check', id)
     console.log('order', order)
     res.send({order})
   } catch (error) {
