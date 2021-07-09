@@ -3,9 +3,8 @@ import data from '../data'
 import Product from '../components/Product'
 
 
-
 export default function ProductScreen(props){
-  const { onAdd } = props;
+  const {onAdd} = props;
   const product = data.products.find((x) => x._id === props.match.params.id);
   if(!product){
     return <div>Product Not Found</div>
@@ -35,7 +34,8 @@ export default function ProductScreen(props){
             <li>
               <div className="row">
                 <div>Price</div>
-                <div className="price">${ product.price}</div>
+                <div className="price">${ product.price }
+                </div>
               </div>
             </li>
             <li>

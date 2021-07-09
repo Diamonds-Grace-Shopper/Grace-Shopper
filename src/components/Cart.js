@@ -2,7 +2,6 @@ import React from 'react';
 
 export default function Cart(props) {
     const { cartItems, onAdd, onRemove } = props;
-    console.log('This is cartItem', cartItems)
     const itemsPrice = cartItems.reduce((a, c) => a + c.qty * c.price, 0);
     const taxPrice = itemsPrice * 0.14;
     const shippingPrice = itemsPrice > 2000 ? 0 : 20;
@@ -25,7 +24,7 @@ export default function Cart(props) {
               </div>
   
               <div className="col-2 text-right">
-                {item.qty * item.price}
+                {item.qty} x ${item.price}
               </div>
             </div>
           ))}
@@ -58,7 +57,7 @@ export default function Cart(props) {
               </div>
               <hr />
               <div className="row">
-                <button onClick={() => alert('Implement Checkout!')}>
+                <button onClick={() => alert('Paymeny method!')}>
                   Checkout
                 </button>
               </div>

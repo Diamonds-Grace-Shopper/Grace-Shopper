@@ -25,9 +25,7 @@ function App() {
   }, [])
   const [cartItems, setCartItems] = useState([]);
   const onAdd = (product) => {
-    console.log('Starting OnAdd function')
     const exist = cartItems.find((x) => x.id === product._id);
-    console.log('This is how exist look like', exist)
     if (exist) {
       setCartItems(
         cartItems.map((x) =>
@@ -37,11 +35,11 @@ function App() {
     } else {
       setCartItems([...cartItems, { ...product, qty: 1 }]);
     }
-    console.log('This is how cartItem look like', cartItems)
   };
   const onRemove = (product) => {
+    console.log('Starting onRemove function')
     const exist = cartItems.find((x) => x.id === product._id);
-    if (exist.qty === 1) {
+    if (exist === 1) {
       setCartItems(cartItems.filter((x) => x.id !== product._id));
     } else {
       setCartItems(
@@ -50,6 +48,7 @@ function App() {
         )
       );
     }
+    console.log('This is how onRemove looks like', cartItems)
   };
   return (
 
