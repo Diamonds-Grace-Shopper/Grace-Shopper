@@ -82,6 +82,9 @@ async function createInitialUsers() {
       { username: 'albert', password: 'bertie99', email: 'albert@gmail.com', shippingAddress: '1337 w michigan ave' },
       { username: 'sandra', password: 'sandra123', email: 'sandra@gmail.com', shippingAddress: '532 n wentworth ave' },
       { username: 'glamgal', password: 'glamgal123', email: 'glamgal@gmail.com', shippingAddress: '1925 s 17th st' },
+      { username: 'spongebob', password: 'squarepants', email: 'spongebob@gmail.com', shippingAddress: '324 s pineapple dr' },
+      { username: 'patrick', password: 'star', email: 'patrick@gmail.com', shippingAddress: 'under a rock' },
+      { username: 'squidward', password: 'tentacles', email: 'squidward@gmail.com', shippingAddress: '325 s pineapple dr' }
     ]
     const users = await Promise.all(usersToCreate.map(createUser))
 
@@ -99,6 +102,9 @@ async function createInitialProducts() {
     const productsToCreate = [
       {name:'ribeye', description:'1.5 cut, 14oz ', price:'19.99', category:'beef'},
       {name:'short ribs', description:' 1.5lb ', price:'29.99', category:'beef'},
+      {name:'porterhouse', description:'20 oz', price:'37.99', category:'beef'},
+      {name:'NY strip', description:'16 oz', price:'24.99', category:'beef'},
+      {name:'chicken breast', description:'6 oz', price:'14.99', category:'poultry'},
     ]
     const products = await Promise.all(productsToCreate.map(createProduct))
 
@@ -115,8 +121,12 @@ async function createInitialOrders() {
   console.log('Starting to create orders...')
   try {
     const ordersToCreate = [
+      { userId: 1 },
       { userId: 2 },
-      { userId: 1 }
+      { userId: 3 },
+      { userId: 4 },
+      { userId: 5 },
+      { userId: 6 }
     ]
     const orders = await Promise.all(ordersToCreate.map(createOrder))
 
@@ -133,8 +143,8 @@ async function createInitialProductsInOrders() {
   console.log('Starting to create products in orders...')
   try {
     const productsOrdersToCreate = [
-      { productId:'2', orderId:'1', quantity:'4', unitPrice: '19.67' },
-      { productId:'1', orderId:'2', quantity:'3', unitPrice: '29.99' },
+      { productId:'2', orderId:'1', quantity:'4', unitPrice: '29.99' },
+      { productId:'1', orderId:'2', quantity:'3', unitPrice: '19.99' },
     ]
     const products_orders = await Promise.all(productsOrdersToCreate.map(addProductToOrder))
 

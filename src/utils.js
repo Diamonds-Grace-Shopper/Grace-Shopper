@@ -59,6 +59,7 @@ export async function login(username, password) {
     if (data.token) {
       setToken(data.token)
     }
+    console.log('login', data)
     return data
   } catch (err) {
     console.error('login(): Unable to login.\n', err)
@@ -93,6 +94,8 @@ export async function register(username, password, email, shippingAddress) {
       setToken(data.token)
     }
 
+    data.status = 'register'
+    console.log('register', data)
     return data
   } catch (err) {
     console.error('register(): Unable to register user.\n', err)
