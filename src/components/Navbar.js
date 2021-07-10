@@ -29,18 +29,8 @@ function Navbar({ user, setUser, history }) {
             <NavLink to='/cart'> Cart </NavLink>
           </div>
         )}
-        {/* <div>
-          <NavLink to='/src/components/Cart.js'>
-            <a href="#/cart">
-              Cart{' '}
-              {props.countCartItems ? (
-                <button className="badge">{props.countCartItems}</button>
-              ) : (
-                ''
-              )}
-            </a>{' '}
-          </NavLink>
-        </div> */}
+        <div>
+        </div>
       </nav>
     </div>
   )
