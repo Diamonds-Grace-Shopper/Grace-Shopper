@@ -1,40 +1,80 @@
-const { response } = require('express');
-const express = require('express');
-const app = express();
-const { getAllProducts, getProduct, } = require('../db/products')
+const express = require('express')
+const router = express.Router()
+//import functions from db
+const { createOrder, addProductToOrder, deleteProductFromOrder, getProductsByOrderId, updateProductQuantityInOrder } = require('../db')
 
-app.use(express.static('public'));
-
-app.get("/", function (req, res){
-    response.sendFile(__dirname + '/views/index.html');
-});
-
-//POST goes here
-
-//Simple in-memory store for now 
-const Storage = {
-    add: function(name) {
-        const item = {name: name, id: this.setId};
-        this.items.push(item);
-        this.setId +=1;
-        return item;
+//testing route
+router.get('/', (req, res, next) => {
+    try {
+        res.send({
+            message: 'orders'
+        })
+    } catch (error) {
+        next(error)
     }
-};
+})
 
-const createStorage = () => {
-    const storage = Object.create(Storage);
-    storage.items = [];
-    storage.setId = 1;
-    return storage;
-}
+//GET /api/orders/:order
+router.get('/:order', async (req, res, next) => {
+    const { order } = req.params
 
-storage = createStorage();
+    try {
+        const productsInOrder = await getProductsByOrderId(order)
 
-storage.add('');
-storage.add('');
-storage.add('');
+        res.send({ productsInOrder })
+    } catch (error) {
+        console.error('GET api')
+        next(error)
+    }
+})
 
-//Request Listener
-const listener = app.listen(process.env.PORT, function() {
-    console.log('Your app is listening on port ' + listener.address().port);
-});
+//create an order for the user when account is first made
+router.post('/', async (req, res, next) => {
+    const { userId } = req.body
+    console.log('body', userId)
+
+    try {
+        const order = await createOrder({userId})
+        res.send(order)
+    } catch (error) {
+        console.error('couldnt make order')
+    }
+}) 
+
+//POST /api/orders/:order
+//add product to products_orders
+router.post('/:order', async (req, res, next) => {
+    const { productId, orderId, quantity, unitPrice } = req.body
+    
+    try {
+        const product = await addProductToOrder({productId, orderId, quantity, unitPrice})
+        res.send({ product })
+    } catch (error) {
+        next(error)
+    }
+})
+
+router.delete('/:order', async (req, res, next) => {
+    const { productId, orderId } = req.body
+
+    try {
+        const deletedProduct = await deleteProductFromOrder({productId, orderId})
+        res.send({ deletedProduct })
+    } catch (error) {
+        next(error)
+    }
+})
+
+router.patch('/:order', async (req, res, next) => {
+    const { productId, orderId, quantity } = req.body
+
+    try {
+        const updatedProduct = await updateProductQuantityInOrder({ productId, orderId, quantity })
+        res.send({updatedProduct})
+    } catch (error) {
+        next(error)
+    }
+})
+
+
+module.exports = router

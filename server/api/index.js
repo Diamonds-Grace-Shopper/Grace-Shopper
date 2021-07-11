@@ -46,9 +46,15 @@ router.use((req, res, next) => {
 const usersRouter = require('./users')
 const productsRouter = require('./products')
 router.use('/users', usersRouter)
+<<<<<<< HEAD
 
 router.use('/products', productsRouter)
 
+=======
+>>>>>>> origin/testing-david
 // ------ ADD MORE ROUTES BELOW ------
+
+const ordersRouter = require('./orders')
+router.use('/orders', ordersRouter)
 
 module.exports = router
