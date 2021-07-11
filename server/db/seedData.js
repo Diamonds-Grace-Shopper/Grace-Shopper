@@ -1,8 +1,8 @@
 // require in the database adapter functions as you write them (createUser, createActivity...)
 const { createUser } = require('./')
 const { createProduct } = require('./products')
-const { createOrders } = require('./orders')
-const { createProductToOrders } = require('./orders')
+const { createOrder } = require('./orders')
+const { addProductToOrder } = require('./orders')
 const client = require('./client')
 
 async function dropTables() {
@@ -45,19 +45,15 @@ async function createTables() {
       );
       CREATE TABLE orders (
         id SERIAL PRIMARY KEY,
-        status varchar(255) NOT NULL,
-        orderQuantity INTEGER DEFAULT 0,
-        date VARCHAR(10),
-        time VARCHAR(8), 
-        total DECIMAL NOT NULL,
-        userId INTEGER REFERENCES users(id)
+        "userId" INTEGER REFERENCES users(id)
       ); 
       CREATE TABLE products_orders (
-        jointId SERIAL PRIMARY KEY,
-        productId INTEGER REFERENCES products(id),
-        orderId INTEGER REFERENCES orders(id),
+        id SERIAL PRIMARY KEY,
+        "productId" INTEGER REFERENCES products(id),
+        "orderId" INTEGER REFERENCES orders(id),
         quantity INTEGER NOT NULL,
-        unitPrice DECIMAL NOT NULL
+        "unitPrice" DECIMAL NOT NULL,
+        UNIQUE ("productId", "orderId")
       );
     `)
 
@@ -87,6 +83,9 @@ async function createInitialUsers() {
       { username: 'albert', password: 'bertie99', email: 'albert@gmail.com', shippingAddress: '1337 w michigan ave' },
       { username: 'sandra', password: 'sandra123', email: 'sandra@gmail.com', shippingAddress: '532 n wentworth ave' },
       { username: 'glamgal', password: 'glamgal123', email: 'glamgal@gmail.com', shippingAddress: '1925 s 17th st' },
+      { username: 'spongebob', password: 'squarepants', email: 'spongebob@gmail.com', shippingAddress: '324 s pineapple dr' },
+      { username: 'patrick', password: 'star', email: 'patrick@gmail.com', shippingAddress: 'under a rock' },
+      { username: 'squidward', password: 'tentacles', email: 'squidward@gmail.com', shippingAddress: '325 s pineapple dr' }
     ]
     const users = await Promise.all(usersToCreate.map(createUser))
 
@@ -104,6 +103,9 @@ async function createInitialProducts() {
     const productsToCreate = [
       {name:'ribeye', description:'1.5 cut, 14oz ', price:'19.99', category:'beef'},
       {name:'short ribs', description:' 1.5lb ', price:'29.99', category:'beef'},
+      {name:'porterhouse', description:'20 oz', price:'37.99', category:'beef'},
+      {name:'NY strip', description:'16 oz', price:'24.99', category:'beef'},
+      {name:'chicken breast', description:'6 oz', price:'14.99', category:'poultry'},
     ]
     const products = await Promise.all(productsToCreate.map(createProduct))
 
@@ -120,10 +122,14 @@ async function createInitialOrders() {
   console.log('Starting to create orders...')
   try {
     const ordersToCreate = [
-      { status: 'stock', orderQuantity: '1', date: '', time: '', total: '19.99', userId: '2' },
-      { status: 'stock', orderQuantity: '2', date: '', time: '', total: '29.99', userId: '1' },
+      { userId: 1 },
+      { userId: 2 },
+      { userId: 3 },
+      { userId: 4 },
+      { userId: 5 },
+      { userId: 6 }
     ]
-    const orders = await Promise.all(ordersToCreate.map(createOrders))
+    const orders = await Promise.all(ordersToCreate.map(createOrder))
 
     console.log('Orders created:')
     console.log(orders)
@@ -138,10 +144,10 @@ async function createInitialProductsInOrders() {
   console.log('Starting to create products in orders...')
   try {
     const productsOrdersToCreate = [
-      { productId:'2', orderId:'1', quantity:'4', unitPrice: '19.67' },
-      { productId:'1', orderId:'2', quantity:'3', unitPrice: '29.99' },
+      { productId:'2', orderId:'1', quantity:'4', unitPrice: '29.99' },
+      { productId:'1', orderId:'2', quantity:'3', unitPrice: '19.99' },
     ]
-    const products_orders = await Promise.all(productsOrdersToCreate.map(createProductToOrders))
+    const products_orders = await Promise.all(productsOrdersToCreate.map(addProductToOrder))
 
     console.log('Products in orders created:')
     console.log(products_orders)
