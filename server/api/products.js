@@ -14,8 +14,6 @@ router.get('/', async (req, res) => {
     console.log(products)
     res.send( products )
 })
-=======
->>>>>>> origin/testing-david
 
 
 

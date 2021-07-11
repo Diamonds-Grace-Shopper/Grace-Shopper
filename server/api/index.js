@@ -50,8 +50,6 @@ router.use('/users', usersRouter)
 
 router.use('/products', productsRouter)
 
-=======
->>>>>>> origin/testing-david
 // ------ ADD MORE ROUTES BELOW ------
 
 const ordersRouter = require('./orders')
