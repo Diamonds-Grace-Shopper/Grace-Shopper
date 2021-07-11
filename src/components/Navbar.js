@@ -1,6 +1,6 @@
 import React from 'react'
 import { NavLink, withRouter } from 'react-router-dom'
-import Cart from './Cart'
+
 
 function Navbar({ user, setUser, history }) {
   function handleLogout() {

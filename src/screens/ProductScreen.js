@@ -7,6 +7,7 @@ import Product from '../components/Product'
 
 
 export default function ProductScreen(props){
+  const onAdd = props;
 
   async function handleSubmit(event) {
     event.preventDefault()
@@ -63,7 +64,7 @@ export default function ProductScreen(props){
               </div>
             </li>
             <li>
-              <button type="submit" className="primary block">Add to Cart</button>
+              <button type="submit" className="primary block" >Add to Cart</button>
             </li>
 
           </ul>

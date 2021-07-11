@@ -1,15 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import Product from '../components/Product'
 import axios from 'axios';
+import data from '../data'
 
 
-export default function HomeScreen(){
+export default function HomeScreen(props){
+  const { onAdd } = props
   const [products, setProducts] = useState([]);
   const [loading, setLoading ] = useState(false);
   const [error, setError] = useState(false);
 
 
   useEffect(() =>{
+    
     const fecthData = async () => {
       try{
         setLoading(false);
@@ -32,7 +35,6 @@ export default function HomeScreen(){
 
         <div className="row center">
       {
-
         data.products.map(product =>(
           <Product key={product._id} product={product} onAdd={onAdd}></Product>
         ))

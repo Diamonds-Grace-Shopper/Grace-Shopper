@@ -46,7 +46,6 @@ router.use((req, res, next) => {
 const usersRouter = require('./users')
 const productsRouter = require('./products')
 router.use('/users', usersRouter)
-<<<<<<< HEAD
 
 router.use('/products', productsRouter)
 
