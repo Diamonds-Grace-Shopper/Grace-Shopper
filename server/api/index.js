@@ -44,8 +44,14 @@ router.use((req, res, next) => {
 
 // ROUTER: /api/users
 const usersRouter = require('./users')
+const productsRouter = require('./products')
 router.use('/users', usersRouter)
 
+router.use('/products', productsRouter)
+
 // ------ ADD MORE ROUTES BELOW ------
+
+const ordersRouter = require('./orders')
+router.use('/orders', ordersRouter)
 
 module.exports = router

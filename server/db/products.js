@@ -1,4 +1,23 @@
-const { client } = require('./client');
+const client = require('./client');
+
+async function createProduct({name,description,price,category, image}) 
+{
+  try{
+    console.log(name)
+    const {rows: [ product ] } = await client.query(
+    `
+    INSERT INTO products(name, description, price, category, image)
+    VALUES($1, $2, $3, $4, $5)
+    ON CONFLICT (name) DO NOTHING
+    RETURNING *
+    `, 
+    [name, description, price, category, image])
+
+    return product
+  }catch(error){
+    throw error
+  }
+};
 
 async function getAllProducts(){
   try{
@@ -12,7 +31,6 @@ async function getAllProducts(){
     throw error;
   }
 }
-
 
 
 async function getProduct(id){
@@ -30,27 +48,7 @@ async function getProduct(id){
   }
 }
 
-async function createProduct({
-  name,
-  description,
-  price,
-  category
-}){
-  try{
-    const {rows: [ product ] } = await client.query(`
 
-    INSERT INTO products(name, description, price, category)
-    VALUES($1, $2, $3, $4)
-    ON CONFLICT (name) DO NOTHING
-    RETURNING *;
-
-    `, [name, description, price, category]);
-
-    return product;
-  }catch(error){
-    throw error
-  }
-}
 
 async function updateProduct(id, fields = {}){
   const setString = Object.keys(fields).map(

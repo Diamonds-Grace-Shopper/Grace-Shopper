@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const jwt = require('jsonwebtoken')
-const { createUser, getUser, getUserByUsername, getUserById } = require('../db')
+const { createUser, getUser, getUserByUsername, getOrderByUserId } = require('../db')
 const SALT_COUNT = 10
 const { JWT_SECRET = 'neverTell' } = process.env
 
@@ -42,7 +42,7 @@ router.post('/login', async (req, res, next) => {
 // POST /api/users/register
 router.post('/register', async (req, res, next) => {
   try {
-    const { username, password } = req.body
+    const { username, password, email, shippingAddress } = req.body
     const queriedUser = await getUserByUsername(username)
     if (queriedUser) {
       res.status(401)
@@ -54,6 +54,8 @@ router.post('/register', async (req, res, next) => {
       const user = await createUser({
         username,
         password,
+        email,
+        shippingAddress
       })
       if (!user) {
         next({
@@ -78,6 +80,17 @@ router.post('/register', async (req, res, next) => {
 router.get('/me', (req, res, next) => {
   try {
     res.send(req.user)
+  } catch (error) {
+    next(error)
+  }
+})
+
+router.get('/:id/orders', async (req, res, next) => {
+  try {
+    const { id } = req.params
+    const order = await getOrderByUserId(id)
+    console.log('order', order)
+    res.send({order})
   } catch (error) {
     next(error)
   }
