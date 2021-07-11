@@ -1,17 +1,22 @@
 const express = require('express');
-const axios = require('axios');
-const { SERVER_ADDRESS = 'http://localhost:', PORT = 5000} = process.env;
-const API_URL = process.env.API_URL || SERVER_ADDRESS + PORT;
 const { getAllProducts } = require('../db/products');
 const { getProduct } = require('../db/products');
 const { createProduct } = require('../db/products');
 const { updateProduct } = require('../db/products');
 const { destroyProduct } = require('../db/products');
 
-const { rebuildDB, testDB } = require('../db/seedData');
-const { client } =require('../db');
-const { useState } = require('react');
-
 const router = express.Router();
 
+<<<<<<< HEAD
+router.get('/', async (req, res) => {
+    console.log('Fetching Data')
+    let products = await getAllProducts()
+    console.log(products)
+    res.send( products )
+})
+=======
+>>>>>>> testing-david
 
+
+
+module.exports = router
