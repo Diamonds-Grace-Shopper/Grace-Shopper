@@ -5,6 +5,7 @@ const { createProduct } = require('../db/products');
 const { updateProduct } = require('../db/products');
 const { destroyProduct } = require('../db/products');
 
+
 const router = express.Router();
 
 <<<<<<< HEAD
@@ -16,6 +17,14 @@ router.get('/', async (req, res) => {
 })
 =======
 >>>>>>> testing-david
+
+router.get('/:productId', async (req, res) => {
+    const { productId } = req.params //axios call variable
+    let product = await getProduct( productId )
+    console.log(product)
+    res.send( product )
+})
+
 
 
 

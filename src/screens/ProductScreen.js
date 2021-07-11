@@ -1,10 +1,13 @@
+
 import { React, useState } from 'react';
 import data from '../data'
 import { addProductToOrder, checkLogin, getOrderByUserId } from '../utils'
+
 import Product from '../components/Product'
 
 
 export default function ProductScreen(props){
+
   async function handleSubmit(event) {
     event.preventDefault()
 
@@ -21,17 +24,22 @@ export default function ProductScreen(props){
   }
 
   const product = data.products.find((x) => x._id === props.match.params.id);
+
   if(!product){
-    return <div>Product Not Found</div>
+    return (<div>Product Not Found</div>)
   }
 
-  return <div>
-    <div className="row">
+
+  return (
+  <div>
+    <Link to="/">Back to result</Link>
+    <div className="row top">
+
       <div className="col-2">
-        <img src={product.image} alt={product.name}></img>
+        <img className="large" src={product.image} alt={product.name}></img>
 
       </div>
-      <div className="col-1">
+      <div className="col-1"> 
         <ul>
           <li>
             <h1>{ product.name }</h1>
@@ -64,5 +72,5 @@ export default function ProductScreen(props){
       </form>
 
     </div>
-  </div>;
+  </div>);
 }
