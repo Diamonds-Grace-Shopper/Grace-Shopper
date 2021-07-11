@@ -3,7 +3,6 @@ import Product from '../components/Product'
 import axios from 'axios';
 
 
-
 export default function HomeScreen(){
   const [products, setProducts] = useState([]);
   const [loading, setLoading ] = useState(false);
@@ -27,15 +26,18 @@ export default function HomeScreen(){
     fecthData();
 
   },[])
+
   return (
     <div>
 
         <div className="row center">
       {
-        products.map(product =>(
-          <Product key={product._id} product={product}></Product>
-        ))}
-  
+
+        data.products.map(product =>(
+          <Product key={product._id} product={product} onAdd={onAdd}></Product>
+        ))
+      }
+
     </div>
     </div>
     

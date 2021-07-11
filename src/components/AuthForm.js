@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import axios from 'axios'
-import { login, register } from '../utils'
+import { login, register, createOrder } from '../utils'
 
 function AuthForm(props) {
   let { type, setUser } = props // type of auth form (login or signup) and isLoggedIn Function
@@ -20,13 +20,19 @@ function AuthForm(props) {
           type === 'login'
             ? await login(username, password)
             : await register(username, password, email, shippingAddress)
-        if (data.user) {
-          await setUsername('')
-          await setPassword('')
-          await setEmail('')
-          await setShippingAddress('')
+        if (data.status === 'register') {
+          await createOrder(data.user.id)
+          setUsername('')
+          setPassword('')
+          setEmail('')
+          setShippingAddress('')
           await setUser(data.user)
           props.history.push('/home') // send it home
+        } else if (data.user) {
+          setUsername('')
+          setPassword('')
+          await setUser(data.user)
+          props.history.push('/home')
         }
       } catch (error) {
         console.log(error)
@@ -56,26 +62,30 @@ function AuthForm(props) {
           onChange={(evt) => setPassword(evt.target.value)}
         />
       </div>
-      <div>
-        <label htmlFor='email'>Email:</label>
-        <input
-          id='email'
-          value={email}
-          type='text'
-          placeholder='Type your email'
-          onChange={(evt) => setEmail(evt.target.value)}
-        />
-      </div>
-      <div>
-        <label htmlFor='shippingAddress'>Shipping Address:</label>
-        <input
-          id='shipping-address'
-          value={shippingAddress}
-          type='text'
-          placeholder='Type your shipping address'
-          onChange={(evt) => setShippingAddress(evt.target.value)}
-        />
-      </div>
+      {type === 'register' ? (
+        <div>
+          <div>
+            <label htmlFor='email'>Email:</label>
+            <input
+              id='email'
+              value={email}
+              type='text'
+              placeholder='Type your email'
+              onChange={(evt) => setEmail(evt.target.value)}
+            />
+          </div>
+          <div>
+            <label htmlFor='shippingAddress'>Shipping Address:</label>
+            <input
+              id='shipping-address'
+              value={shippingAddress}
+              type='text'
+              placeholder='Type your shipping address'
+              onChange={(evt) => setShippingAddress(evt.target.value)}
+            />
+          </div>
+        </div>
+      ) : null }
       <button type='submit'>{type === 'login' ? 'Login' : 'Register'}</button>
     </form>
   )
