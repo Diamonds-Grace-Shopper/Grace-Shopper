@@ -20,7 +20,7 @@ const data = {
       _id: '3',
       name: '14 oz Bone-In Filet Prime, Wet Aged',
       price: '42',
-      description: '',
+      description: 'If you love tenderloin steak, you’ll love our USDA Prime Bone In Filet Mignon. Aged to perfection, this beef cut has a mild flavor and superior buttery texture, making it an excellent choice for special occasion dinners. The steak is hand-selected and hand-cut with precision by veteran butchers and wet aged a minimum of 21 days to enhance steak flavor and texture.',
       category: 'beef',
       image: '/images/image_31.png'
     },
