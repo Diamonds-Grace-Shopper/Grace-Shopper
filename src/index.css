@@ -184,11 +184,13 @@ img.large {
 
 /* Card */
 .card{
+  padding: 1rem;
+  margin: auto 0.5rem;
   border: double white;
   background: linear-gradient(to right,rgb(221, 140, 94), rgb(37, 20, 10));
   border-radius: 0.5rem;
   padding: 1rem;
-  margin: auto auto 0.5rem;
+  margin: auto 0.5rem;
 }
 
 
