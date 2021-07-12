@@ -175,7 +175,7 @@ img.medium{
 
 }
 img.large {
-  width: 100%;
+  width: 90%;
 }
 
 /* Card */
@@ -203,5 +203,5 @@ img.large {
 
 .price{
   font-size: 2rem;
-  color: black;
+  color: white;
 }
