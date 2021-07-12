@@ -6,7 +6,7 @@ const morgan = require('morgan')
 const path = require('path')
 const apiRouter = require('./api')
 const { client } = require('./db')
-const PORT = 4000 // server port
+const port = process.env.PORT || 4000 // server port
 
 // connect the database client
 client.connect()
@@ -41,4 +41,4 @@ server.use('*', (req, res) => {
   res.status(404).send('Invalid Request.  Try again.')
 })
 
-server.listen(PORT, () => console.log(`Starting server on port: ${PORT}`))
+server.listen(port, () => console.log(`Starting server on port: ${port}`))
