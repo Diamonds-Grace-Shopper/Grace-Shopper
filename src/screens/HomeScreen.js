@@ -12,6 +12,7 @@ export default function HomeScreen(props){
 
 
   useEffect(() =>{
+    
     const fecthData = async () => {
       try{
         setLoading(false);
@@ -34,7 +35,6 @@ export default function HomeScreen(props){
 
         <div className="row center">
       {
-
         data.products.map(product =>(
           <Product key={product._id} product={product} onAdd={onAdd}></Product>  
         ))
