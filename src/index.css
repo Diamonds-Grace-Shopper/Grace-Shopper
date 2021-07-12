@@ -10,6 +10,7 @@ body{
 	height: 100vh;
 	font-size: 1.6rem;
 	font-family: Arial, Helvetica, sans-serif;
+  /* color: lightgoldenrodyellow; */
 }
 
 #root{
@@ -30,7 +31,13 @@ body{
 
 .header{
   grid-area: header;
+  font-size: 2rem;
+  left: 0;
+  right: 0;
+  padding: .5em 1em;
+  box-shadow: 0 2px;
   background-color: darkgray;
+  box-shadow: 0 -2px 4px -2px black;
 }
 
 main{
@@ -39,9 +46,17 @@ main{
 
 }
 footer{
-  grid-area: footer;
-  background-color: black;
   color: aliceblue;
+  clear: both;
+  box-sizing: border-box;
+  position: fixed;
+  height: 64px;
+  padding: 16px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  text-align: center;
+  box-shadow: 0 -2px 4px -2px black;
 }
 
 /* Common */
@@ -71,6 +86,7 @@ ul {
 li {
   margin-top: 1rem;
 }
+
 button {
   padding: 1rem;
   border-radius: 0.5rem;

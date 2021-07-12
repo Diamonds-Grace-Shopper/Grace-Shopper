@@ -2,13 +2,13 @@
 import { React, useState } from 'react';
 import data from '../data'
 import { addProductToOrder, checkLogin, getOrderByUserId } from '../utils'
+import { Link } from 'react-router-dom';
 
 import Product from '../components/Product'
 
 
 export default function ProductScreen(props){
-  const onAdd = props;
-
+  const {onAdd} = props
   async function handleSubmit(event) {
     event.preventDefault()
 
@@ -59,12 +59,13 @@ export default function ProductScreen(props){
             <li>
               <div className="row">
                 <div>Price</div>
-                <div className="price">${ product.price }
+                <div className="price">
+                  ${ product.price }
                 </div>
               </div>
             </li>
             <li>
-              <button type="submit" className="primary block" >Add to Cart</button>
+              <button type="submit" className="primary block">Add to Cart</button>
             </li>
 
           </ul>
