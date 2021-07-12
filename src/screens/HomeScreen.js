@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Product from '../components/Product'
 import axios from 'axios';
+import data from '../data'
 
 
 export default function HomeScreen(props){
@@ -34,7 +35,7 @@ export default function HomeScreen(props){
         <div className="row center">
       {
 
-        products.map(product =>(
+        data.products.map(product =>(
           <Product key={product._id} product={product} onAdd={onAdd}></Product>  
         ))
       }

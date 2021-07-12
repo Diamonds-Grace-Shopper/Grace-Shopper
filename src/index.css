@@ -106,8 +106,7 @@ header a{
 }
 
 
-a.brand{
-.brand{
+.brand {
   color: rgb(248, 193, 156);
   font-size: 3rem;
   font-weight: bold;
