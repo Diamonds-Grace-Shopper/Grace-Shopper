@@ -5,6 +5,7 @@ const { createProduct } = require('../db/products');
 const { updateProduct } = require('../db/products');
 const { destroyProduct } = require('../db/products');
 
+
 const router = express.Router();
 
 router.get('/', async (req, res) => {
@@ -21,6 +22,10 @@ router.get('/:productId', async (req, res) => {
     res.send( product )
 })
 
+<<<<<<< testing-david
+
+=======
+>>>>>>> testing-zack
 
 
 module.exports = router

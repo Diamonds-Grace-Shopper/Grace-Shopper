@@ -3,11 +3,8 @@ const express = require('express');
 const app = express();
 const { getAllProducts, getProducts, } = require('../db')
 
-app.use(express.static('public'));
 
-app.get("/", function (req, res){
-    response.sendFile(__dirname + '/views/index.html');
-});
+
 
 //POST goes here
 
@@ -34,7 +31,3 @@ storage.add('');
 storage.add('');
 storage.add('');
 
-//Request Listener
-const listener = app.listen(process.env.PORT, function() {
-    console.log('Your app is listening on port ' + listener.address().port);
-});

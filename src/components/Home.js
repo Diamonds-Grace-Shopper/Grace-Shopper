@@ -7,7 +7,8 @@ function Home(props) {
   useEffect(() => {
     async function setUserData() {
       let data = await checkLogin()
-      console.log(data)
+      delete data.password
+      console.log(data.username)
       if (!data.id) {
         // no user, return to login
         props.history.push('/login')
