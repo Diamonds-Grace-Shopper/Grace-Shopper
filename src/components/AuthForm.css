@@ -1,0 +1,10 @@
+.AuthForm {
+    background-color: #c75000;
+    padding: 1rem;
+    margin: 7rem auto auto ;
+    border-radius: 0.5rem;
+    width: 65%;
+    border: double white;
+    opacity: 0.6;
+    filter: alpha(opacity=40); 
+}
