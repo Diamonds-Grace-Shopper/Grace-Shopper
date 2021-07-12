@@ -4,7 +4,6 @@ html{
 	box-sizing: border-box;
 }
 
-
 body{
 	margin: 0;
 	height: 100vh;
@@ -38,13 +37,14 @@ body{
   box-shadow: 0 2px;
   background-color: darkgray;
   box-shadow: 0 -2px 4px -2px black;
+  margin: auto 20px 30px;
 }
 
 main{
   grid-area: main;
   padding: 1rem;
-
 }
+
 footer{
   color: aliceblue;
   clear: both;
@@ -57,6 +57,10 @@ footer{
   right: 0;
   text-align: center;
   box-shadow: 0 -2px 4px -2px black;
+}
+
+.Home {
+  color: antiquewhite; 
 }
 
 /* Common */
