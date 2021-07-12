@@ -51,4 +51,7 @@ router.use('/products', productsRouter)
 
 // ------ ADD MORE ROUTES BELOW ------
 
+const ordersRouter = require('./orders')
+router.use('/orders', ordersRouter)
+
 module.exports = router

@@ -2,26 +2,20 @@ const client = require('./client');
 
 const LIMIT = 20
 
-async function createOrders({ status, orderQuantity, date, time, total, userId }) {
+async function createOrder({ userId }) {
 	try {
-	  const {
-		rows: [order],
-	  } = await client.query(
-		`
-		INSERT INTO orders(status, orderQuantity, date, time, total, userId) 
-		VALUES ($1, $2, $3, $4, $5, $6)
+	  const { rows: [order] } = await client.query(`
+		INSERT INTO orders("userId") 
+		VALUES ($1)
 		RETURNING *;
-	  `,
-		[status, orderQuantity, getDate().date, getDate().time, total, userId]
-	  )
-	  
-	  order.total = parseFloat(order.total);
+        `, [userId]
+    )
 	  
 	  return order
 	} catch (error) {
 	  throw error
 	}
-  };
+};
 
 async function getOrderHistoryStatus(id) {
 	try {
@@ -133,8 +127,8 @@ async function getActiveOrderAlone(userId) {
 		const {
 			rows: [activeOrder],
 		} = await client.query(
-			`
-          SELECT * FROM orders 
+		  `
+    	  SELECT * FROM orders 
           WHERE status = 'active' AND userId = $1;
           `,
 			[userId],
@@ -148,49 +142,33 @@ async function getActiveOrderAlone(userId) {
 	}
 }
 
-async function createProductToOrders({ productId, orderId, quantity, unitPrice }) {
+async function addProductToOrder({ productId, orderId, quantity, unitPrice }) {
 	try {
-	  const {
-		rows: [order],
-	  } = await client.query(
-		`
-		INSERT INTO products_orders( productId, orderId, quantity, unitPrice) 
+	  const { rows: [order] } = await client.query(`
+		INSERT INTO products_orders("productId", "orderId", quantity, "unitPrice") 
 		VALUES ($1, $2, $3, $4)
 		RETURNING *;
-	  `,
-		[productId, orderId, quantity, unitPrice]
-	  )
-	  	order.unitprice = parseFloat(order.unitprice);
+	`, [productId, orderId, quantity, unitPrice]
+	)
 
 	  return order
 	} catch (error) {
-	  throw error
+	  console.error('post query not working')
 	}
   };
 
 
-async function getProductsOrderForAOrderId(id) {
+async function getProductsByOrderId(orderId) {
 	try {
-		const { rows: items } = await client.query(
-			`
-      SELECT *
-      FROM products_orders
-      JOIN products
-      ON products_orders.productId = products.id
-      WHERE products_orders.orderId=$1;
-    `,
-			[id],
-		);
-		if (items) {
-			items.forEach((item) => {
-				item.unitPrice = parseFloat(item.unitPrice);
-				item.itemTotal = parseFloat(item.itemTotal);
-			});
-			return items;
-		} else {
-			return [];
-		}
+	    const { rows } = await client.query(`
+            SELECT *
+            FROM products_orders
+            WHERE "orderId" = $1;
+        `, [orderId])
+
+        return rows
 	} catch (error) {
+        console.error('GET db')
 		throw error;
 	}
 }
@@ -210,90 +188,28 @@ async function getAllProductsorder() {
 	}
 }
 
-async function removeProductFromOrder({ userId, orderId, products_ordersId }) {
+async function deleteProductFromOrder({ productId, orderId }) {
 	try {
-		const deleted = await client.query(
-			`
+		const deleted = await client.query(`
             DELETE FROM products_orders
-            WHERE jointId=$1;
-        `,
-			[products_ordersId],
-		);
+            WHERE "productId" = $1 AND "orderId" = $2;
+        `, [productId, orderId])
 
-		const order = await getActiveOrder(userId);
-
-		let total = 0;
-		let orderQuantity = 0;
-		order.items.forEach((item) => {
-			total = total + item.itemTotal;
-			orderQuantity = orderQuantity + item.quantity;
-		});
-
-		const { rows: newUpdatedCart } = await client.query(
-			`
-            UPDATE orders
-            SET total=$1,
-            orderQuantity=$2
-            WHERE id=$3
-            RETURNING *;
-        `,
-			[total, orderQuantity, orderId],
-		);
-
-		await lastUpdated(orderId);
-
-		const newOrder = await getActiveOrder(userId);
-
-		if (newOrder) {
-			return newOrder;
-		} else {
-			return {};
-		}
+        return deleted
 	} catch (error) {
 		throw error;
-	}
+    }   
 }
 
-async function updateProductQuantity({ userId, jointId, quantity, unitPrice }) {
-	const itemTotal = unitPrice * quantity;
-
+async function updateProductQuantityInOrder({ productId, orderId, quantity }) {
 	try {
-		await client.query(
-			`
+		const updatedProduct = await client.query(`
             UPDATE products_orders
-            SET quantity=$1, 
-            unitPrice=$2, 
-            itemTotal=$3
-            WHERE "jointId"=$4;
-        `,
-			[quantity, unitPrice, itemTotal, jointId],
-		);
+            SET quantity = $3 
+            WHERE "productId" = $1 AND "orderId" = $2;
+        `, [productId, orderId, quantity])
 
-		const order = await getActiveOrder(userId);
-
-		let total = 0;
-		let orderQuantity = 0;
-		order.items.map((item) => {
-			total = total + item.itemTotal;
-			orderQuantity = orderQuantity + item.quantity;
-		});
-
-		await client.query(
-			`
-            UPDATE orders
-            SET total=$1,
-            orderQuantity=$2
-            WHERE id=$3
-            RETURNING *;
-        `,
-			[total, orderQuantity, order.id],
-		);
-
-		await lastUpdated(order.id);
-
-		const newOrder = await getActiveOrder(userId);
-
-		return newOrder;
+        return updatedProduct
 	} catch (error) {
 		throw error;
 	}
@@ -460,23 +376,39 @@ async function getSalesReport() {
 	}
 }
 
+async function getOrderByUserId(id) {
+	//console.log('orderbyuserid', id)
+
+	try {
+		const { rows } = await client.query(`
+			SELECT *
+			FROM orders
+			WHERE "userId" = $1;
+		`, [id])
+
+		return rows
+	} catch (error) {
+		console.error('could not get order by id')
+	}
+}
+
 module.exports = {
-	createOrders,
+	createOrder,
     getOrderHistoryStatus,
 	getOrderHistoryStatusAdmin,
 	getProcessingOrders,
     getUserById,
 	getActiveOrder,
 	getActiveOrderAlone,
-	createProductToOrders,
+	addProductToOrder,
 	getAllProductsorder,
-	getProductsOrderForAOrderId,
-	removeProductFromOrder,
+	getProductsByOrderId,
+	deleteProductFromOrder,
 	deactivateOrder,
-	updateProductQuantity,
+	updateProductQuantityInOrder,
 	completeOrder,
 	getUserOrderHistory,
 	getOrderHistory,
 	getSalesReport,
-	
+	getOrderByUserId	
 }
