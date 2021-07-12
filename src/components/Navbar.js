@@ -22,7 +22,7 @@ function Navbar({ user, setUser, history }) {
             }
           </div>
         ) : (
-          <div class = 'Nav'>
+          <div className = 'Nav'>
             <NavLink to='/login'>Login</NavLink>
             <NavLink to='/signup'>Sign Up</NavLink>
             <NavLink to='/cart'>Cart/Order</NavLink>

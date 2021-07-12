@@ -81,7 +81,7 @@ h2{
 
 a{
   text-decoration: none;
-  color: rgb(248, 193, 156)
+  color: rgb(248, 193, 156);
 }
 a:hover {
   color: rgb(247, 228, 217);
@@ -124,7 +124,7 @@ header a{
 }
 
 .brand {
-  float: left;
+  /* float: left; */
   color: rgb(248, 193, 156);
   font-family: 'Zen Tokyo Zoo', cursive;
   font-size: 250%;
@@ -132,13 +132,7 @@ header a{
 }
 
 .Nav {
-  display: flex;
-  justify-content: flex-end;
-  font-size: 100%;
-  color:#717568;
-  font-family: Verdana, Geneva, Tahoma, sans-serif; 
-  justify-content: space-evenly;
-  padding-right: 0px;
+  padding-right: 7rem;
 }
 
 .row{
