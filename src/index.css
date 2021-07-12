@@ -146,6 +146,9 @@ header a{
   align-items: center;
 }
 
+.result {
+  margin: 4.5rem;
+}
 .row.center{
   justify-content: center;
 }
@@ -172,18 +175,20 @@ img.medium{
   max-width: 29rem;
   height: 20rem;
   width: 100%;
+  margin: auto .7vh auto;
 
 }
 img.large {
-  width: 100%;
+  width: 90%;
 }
 
 /* Card */
 .card{
-  border: 0.1rem solid rgb(243, 208, 176);
+  border: double white;
   background: linear-gradient(to right,rgb(221, 140, 94), rgb(37, 20, 10));
   border-radius: 0.5rem;
-  margin: 1rem;
+  padding: 1rem;
+  margin: auto auto 0.5rem;
 }
 
 
