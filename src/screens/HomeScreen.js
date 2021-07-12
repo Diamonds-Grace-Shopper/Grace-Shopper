@@ -19,7 +19,7 @@ export default function HomeScreen(props){
         const { data } = await axios.get('/api/products');
         setLoading(false)
         setProducts(data);
-
+        console.log('meat data', data)
       }catch(error){
         setError(error.message);
         setLoading(false)
@@ -36,7 +36,7 @@ export default function HomeScreen(props){
         <div className="row center">
       {
         data.products.map(product =>(
-          <Product key={product._id} product={product} onAdd={onAdd}></Product>
+          <Product key={product._id} product={product} onAdd={onAdd}></Product>  
         ))
       }
 

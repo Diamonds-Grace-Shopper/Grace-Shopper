@@ -102,6 +102,7 @@ async function createInitialUsers() {
 async function createInitialProducts() {
   try{
     const productsToCreate = [
+      
       {
         id: '1',
         name: 'Prime Porterhouse, Wet Aged 20oz',
@@ -262,7 +263,7 @@ async function createInitialProducts() {
         description: 'The centerpiece of your next BBQ!  With 4lbs to work with, these meaty, juicy, and deliciously tender baby backs are sure to impress. (2) Racks (2) lbs each',
         category: 'beef',
         image: '/images/image_201.jpg'
-      },
+      }
     ]
     const products = await Promise.all(productsToCreate.map(createProduct))
 

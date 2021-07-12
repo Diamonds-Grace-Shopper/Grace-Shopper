@@ -8,7 +8,8 @@ import Product from '../components/Product'
 
 
 export default function ProductScreen(props){
-  const {onAdd} = props
+  const { onAdd } = props;
+  
   async function handleSubmit(event) {
     event.preventDefault()
 

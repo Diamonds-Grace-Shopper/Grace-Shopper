@@ -8,7 +8,6 @@ const { destroyProduct } = require('../db/products');
 
 const router = express.Router();
 
-
 router.get('/', async (req, res) => {
     console.log('Fetching Data')
     let products = await getAllProducts()
@@ -22,7 +21,6 @@ router.get('/:productId', async (req, res) => {
     console.log(product)
     res.send( product )
 })
-
 
 
 
