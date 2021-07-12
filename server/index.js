@@ -41,4 +41,4 @@ server.use('*', (req, res) => {
   res.status(404).send('Invalid Request.  Try again.')
 })
 
-server.listen(PORT, () => console.log(`Starting server on port: ${port}`))
+server.listen(PORT, () => console.log(`Starting server on port: ${PORT}`))
