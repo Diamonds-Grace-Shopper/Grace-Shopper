@@ -57,7 +57,9 @@ h2{
   padding: 1rem 0;
 }
 
-
+.col-1{
+  color: bisque;
+}
 
 
 a{
@@ -131,4 +133,5 @@ img.medium{
 
 .price{
   font-size: 2rem;
+  color: black;
 }
