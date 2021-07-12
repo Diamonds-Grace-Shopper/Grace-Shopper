@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { checkLogin } from '../utils'
 
+
 function Home(props) {
   const [user, setUser] = useState({})
 

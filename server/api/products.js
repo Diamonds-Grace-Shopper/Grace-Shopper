@@ -22,10 +22,6 @@ router.get('/:productId', async (req, res) => {
     res.send( product )
 })
 
-<<<<<<< testing-david
-
-=======
->>>>>>> testing-zack
 
 
 module.exports = router

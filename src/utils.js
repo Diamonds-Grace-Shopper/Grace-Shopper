@@ -108,7 +108,6 @@ function setToken(token) {
   localStorage.setItem('token', token)
 }
 
-/////////////////////////////
 export async function createOrder(userId) {
   try {
     const { data } = await axios.post('/api/orders', {

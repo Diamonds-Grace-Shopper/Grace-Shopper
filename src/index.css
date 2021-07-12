@@ -4,7 +4,6 @@ html{
 	box-sizing: border-box;
 }
 
-
 body{
 	margin: 0;
 	height: 100vh;
@@ -31,18 +30,40 @@ body{
 
 .header{
   grid-area: header;
-  background-color: darkgray;
+  font-size: 2rem;
+  left: 0;
+  right: 0;
+  padding: .5em 1em;
+  box-shadow: 0 2px;
+  background: linear-gradient(to right, black, rgb(58, 29, 6),rgb(117, 69, 29),  rgb(248, 193, 156));
+  box-shadow: 0 -2px 4px -2px black;
+  margin: auto 20px 30px;
 }
+
+
 
 main{
   grid-area: main;
   padding: 1rem;
-
 }
+
 footer{
-  grid-area: footer;
-  background-color: black;
   color: aliceblue;
+  background-color: black;
+  clear: both;
+  box-sizing: border-box;
+  position: fixed;
+  height: 64px;
+  padding: 16px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  text-align: center;
+  box-shadow: 0 -2px 4px -2px black;
+}
+
+.Home {
+  color: antiquewhite; 
 }
 
 /* Common */
@@ -57,12 +78,14 @@ h2{
   padding: 1rem 0;
 }
 
-
+.col-1{
+  color: bisque;
+}
 
 
 a{
   text-decoration: none;
-  color: rgb(248, 193, 156)
+  color: rgb(248, 193, 156);
 }
 a:hover {
   color: rgb(247, 228, 217);
@@ -76,6 +99,7 @@ ul {
 li {
   margin-top: 1rem;
 }
+
 button {
   padding: 1rem;
   border-radius: 0.5rem;
@@ -103,12 +127,16 @@ header a{
   padding: 1rem;
 }
 
-
-a.brand{
-.brand{
+.brand {
+  /* float: left; */
   color: rgb(248, 193, 156);
-  font-size: 3rem;
-  font-weight: bold;
+  font-family: 'Zen Tokyo Zoo', cursive;
+  font-size: 250%;
+  padding-right: 10px;
+}
+
+.Nav {
+  padding-right: 7rem;
 }
 
 .row{
@@ -175,4 +203,5 @@ img.large {
 
 .price{
   font-size: 2rem;
+  color: black;
 }
