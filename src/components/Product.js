@@ -2,6 +2,13 @@ import React from 'react'
 
 export default function Product(props){
   const { product, onAdd } = props;
+
+  function addToCartAlert(event) {
+    event.preventDefault()
+    onAdd(product)
+    alert('item has been added to cart')
+  }
+
   return(
     <div key={product._id} className="card">
       <a href={`/product/${product._id}`}>
@@ -14,7 +21,7 @@ export default function Product(props){
         </a>
         <div className="price">
           ${product.price}
-          <button className="primary block" onClick={() => onAdd(product)}>Add to Cart</button>
+          <button className="primary block" onClick={(event) => addToCartAlert(event)}>Add to Cart</button>
         </div>
       </div>
     </div>
