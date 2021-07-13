@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react'
 import { checkLogin } from '../utils'
 
+
 function Home(props) {
   const [user, setUser] = useState({})
 
   useEffect(() => {
     async function setUserData() {
       let data = await checkLogin()
-      console.log(data)
+      delete data.password
+      console.log(data.username)
       if (!data.id) {
         // no user, return to login
         props.history.push('/login')

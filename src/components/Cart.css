@@ -1,0 +1,55 @@
+body {
+    background-image: url('https://images.unsplash.com/photo-1585314062340-f1a5a7c9328d?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=934&q=80');
+    background-repeat: repeat;
+    background-color: #000;
+    background-size: cover;
+}
+.row-c {
+    display: flex;
+    justify-content: space-between;
+    margin:  auto auto .8vh;
+  }
+  .row.center {
+    align-items: center;
+  }
+  .col-3 {
+    flex: 1;
+  }
+  .col-4 {
+    flex: 2;
+  }
+  .block {
+    background-color: #c75000;
+    padding: 1rem;
+    margin: auto auto 0.5rem;
+    border-radius: 0.5rem;
+    border: double white;
+    width: 65%;
+    opacity: 0.6;
+    filter: alpha(opacity=40)
+  }
+  .text-right {
+    text-align: right;
+  }
+button {
+    font-size: 1.5rem;
+    padding: 0.2rem;
+    margin: auto auto 0.1rem;
+    border-radius: 0.5rem;
+    border: 0.1rem #0000 double;
+    background-color: #FFFF00;
+    width: 70%;
+    opacity: 1;
+    filter: alpha(opacity=100)
+    
+  }
+button.add {
+    background-color: #40c0f0;
+    width: 2.5rem;
+    margin: 1.5vh auto auto;
+  }
+  button.remove {
+    background-color: #f04040;
+    width: 2.5rem;
+    margin: 1.5vh auto auto;
+  }

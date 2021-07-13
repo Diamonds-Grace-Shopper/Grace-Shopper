@@ -3,7 +3,13 @@ import Navbar from './components/Navbar'
 import Routes from './Routes'
 import { checkLogin } from './utils'
 import './index.css'
-import data from './data'
+
+import { BrowserRouter, Route } from 'react-router-dom'
+
+import HomeScreen from './screens/HomeScreen'
+import ProductScreen from './screens/ProductScreen'
+import Cart from './components/Cart'
+
 
 function App() {
   const [user, setUser] = useState({})
@@ -17,37 +23,48 @@ function App() {
     }
     setLogIn()
   }, [])
+  const [cartItems, setCartItems] = useState([]);
+  const onAdd = (product) => {
+    const exist = cartItems.find((x) => x._id === product._id);
+    if (exist) {
+      setCartItems(
+        cartItems.map((x) =>
+          x._id === product._id ? { ...exist, qty: exist.qty + 1 } : x
+        )
+      );
+    } else {
+      setCartItems([...cartItems, { ...product, qty: 1 }]);
+    }
+  };
+  const onRemove = (product) => {
+    const exist = cartItems.find((x) => x._id === product._id);
+    if (exist.qty === 1) {
+      setCartItems(cartItems.filter((x) => x._id !== product._id));
+    } else {
+      setCartItems(
+        cartItems.map((x) =>
+          x._id === product._id ? { ...exist, qty: exist.qty - 1 } : x
+        )
+      );
+    }
+  };
   return (
+
+    <BrowserRouter>
     <div className='App'>
       <Navbar user={user} setUser={setUser} />
       <Routes user={user} setUser={setUser} />
-      <div className="grid-container">
+
+      <div className="grid-container">          
   
         <main>
-            <div className="row center">
-              {
-                data.products.map(product =>(
-                  <div key={product._id} className="card">
-                    <a href={`/product/${product._id}`}>
-                        <img className="medium" src={product.image} alt={product.image} />
-                    </a>
-                    <div className="card-body">
-                      <a href={`/product/${product._id}`}>
-                            <h2 className='productname'>{product.name}</h2>
-                            
-                        </a>
-                        <div className="price">
-                            ${product.price}
-                        </div>
-                    </div>
-                </div>
-
-                ))
-              }
-                
-                
-            </div>
-    
+          <Route exact path="/product/:id" component={ProductScreen} ></Route>
+          <Route exact path="/" render={() => (<HomeScreen onAdd={onAdd} onRemove={onRemove}/>)} ></Route>
+          <Route path="/cart" render={() => 
+            (<Cart 
+              cartItems={cartItems}
+              onAdd={onAdd}
+              onRemove={onRemove}/>)}></Route>
         </main>
         <footer className="row center">
             All right reserved
@@ -55,6 +72,7 @@ function App() {
         </footer>
     </div>
     </div>
+    </BrowserRouter>
   )
 }
 

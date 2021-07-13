@@ -4,12 +4,12 @@ html{
 	box-sizing: border-box;
 }
 
-
 body{
 	margin: 0;
 	height: 100vh;
 	font-size: 1.6rem;
 	font-family: Arial, Helvetica, sans-serif;
+  background-color: rgb(20, 20, 20);
 }
 
 #root{
@@ -30,24 +30,47 @@ body{
 
 .header{
   grid-area: header;
-  background-color: darkgray;
+  font-size: 2rem;
+  left: 0;
+  right: 0;
+  padding: .5em 1em;
+  box-shadow: 0 2px;
+  background: linear-gradient(to right, black, rgb(58, 29, 6),rgb(117, 69, 29),  rgb(248, 193, 156));
+  box-shadow: 0 -2px 4px -2px black;
+  margin: auto 20px 30px;
 }
+
+
 
 main{
   grid-area: main;
   padding: 1rem;
-
 }
+
 footer{
-  grid-area: footer;
-  background-color: black;
   color: aliceblue;
+  background-color: black;
+  clear: both;
+  box-sizing: border-box;
+  position: fixed;
+  height: 64px;
+  padding: 16px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  text-align: center;
+  box-shadow: 0 -2px 4px -2px black;
+}
+
+.Home {
+  color: antiquewhite; 
 }
 
 /* Common */
 h1{
   font-size: 1.8rem;
   padding: 1rem 0;
+  color: rgb(248, 193, 156);
 }
 
 h2{
@@ -55,26 +78,65 @@ h2{
   padding: 1rem 0;
 }
 
+.col-1{
+  color: bisque;
+}
+
 
 a{
   text-decoration: none;
+  color: rgb(248, 193, 156);
 }
 a:hover {
-  color: red;
+  color: rgb(247, 228, 217);
+}
+
+ul {
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+}
+li {
+  margin-top: 1rem;
+}
+
+button {
+  padding: 1rem;
+  border-radius: 0.5rem;
+  border: 0.1rem #a4a4a4 solid;
+  font-size: 1.6rem;
+  font-family: Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #f8f8f8;
+  cursor: pointer;
+}
+button:hover {
+  border: 0.1rem #404040 solid;
+}
+button.primary {
+  background-color: #dddad0;
+}
+button.block {
+  width: 100%;
 }
 
 /* Header */
-/* header a{
+header a{
   color: white;
   padding: 1rem;
-} */
+}
 
+.brand {
+  /* float: left; */
+  color: rgb(248, 193, 156);
+  font-family: 'Zen Tokyo Zoo', cursive;
+  font-size: 250%;
+  padding-right: 10px;
+}
 
-.brand{
-  color: white;
-  font-size: 3rem;
-  font-weight: bold;
-
+.Nav {
+  padding-right: 7rem;
 }
 
 .row{
@@ -84,9 +146,24 @@ a:hover {
   align-items: center;
 }
 
+.result {
+  margin: 4.5rem;
+}
 .row.center{
   justify-content: center;
 }
+
+.row.top{
+  align-items: flex-start;
+
+}
+.col-1 {
+  flex: 1 1 25rem;
+}
+.col-2 {
+  flex: 2 1 50rem;
+}
+
 
 
 /* image */
@@ -98,15 +175,22 @@ img.medium{
   max-width: 29rem;
   height: 20rem;
   width: 100%;
+  margin: auto .7vh auto;
 
+}
+img.large {
+  width: 90%;
 }
 
 /* Card */
 .card{
-  border: 0.1rem #c0c0c0 solid;
-  background-color: #f8f8f8;
+  padding: 1rem;
+  margin: auto 0.5rem;
+  border: double white;
+  background: linear-gradient(to right,rgb(221, 140, 94), rgb(37, 20, 10));
   border-radius: 0.5rem;
-  margin: 1rem;
+  padding: 1rem;
+  margin: auto 0.5rem;
 }
 
 
@@ -126,4 +210,5 @@ img.medium{
 
 .price{
   font-size: 2rem;
+  color: white;
 }
