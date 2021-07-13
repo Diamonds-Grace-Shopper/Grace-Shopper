@@ -6,7 +6,7 @@ const morgan = require('morgan')
 const path = require('path')
 const apiRouter = require('./api')
 const { client } = require('./db')
-const PORT = 4000 // server port
+const PORT = process.env.PORT || 4000
 
 // connect the database client
 client.connect()
@@ -32,8 +32,8 @@ server.use((err, req, res, next) => {
 
 // For any get routes that are not in /api, rely on ReactRouter to handle
 server.get('/', (req, res) => {
-  //res.sendFile(path.join(__dirname, 'build', 'index.js'))
-  res.send({message: 'testing'})
+  res.sendFile(path.join(__dirname, 'build', 'index.js'))
+  // res.send({message: 'testing'})
 })
 
 // 404 Handler
