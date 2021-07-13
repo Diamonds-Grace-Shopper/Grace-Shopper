@@ -57,6 +57,88 @@ const data = {
       image: '/images/image_71.jpg'
     },
     {
+      _id: '18',
+      name: '18 oz T-Bone - Prime, Wet Aged',
+      price: '30',
+      description: 'A junior version our Porterhouse, yet still the best of both worlds with a succulent NY Strip on one side and a tender, melt in your mouth filet on the other. Bone appetite!   ',
+      category: 'beef',
+      image: '/images/image_181.jpg'
+    },
+    {
+      _id: '19',
+      name: 'The Mother Chucker Prime Burger(Pack of 2; 8oz each)',
+      price: '9',
+      description: 'A Happy To Meat You (HTMY) exclusive! This is a carefully balanced blend of Prime Chuck & Outside Skirt to produce one of the most incredibly flavorful burgers ever! With the buttery flavor profile from our outside skirt and our quality prime chuck, we’ve personally created the best, most juiciest burger on earth. This bodacious blend is guaranteed NOT to dry out on the grill. Extra napkins not included.  (2) 8oz burgers per pack.',
+      category: 'beef',
+      image: '/images/image_191.jpg'
+    },
+
+    {
+      _id: '20',
+      name: '2 Rib Baby Back (2lbs each)',
+      price: '30',
+      description: 'The centerpiece of your next BBQ!  With 4lbs to work with, these meaty, juicy, and deliciously tender baby backs are sure to impress. (2) Racks (2) lbs each',
+      category: 'beef',
+      image: '/images/image_201.jpg'
+    },
+    {
+      _id: '24',
+      name: 'Japanese A5 Wagyu Ribeye Steak 14oz',
+      price: '149',
+      description: 'One show-stopping, finely marbled A5 Japanese Wagyu Ribeye, cut to 3/4-inch thickness. The ribeye is intensely marbled, decadent, umami-laden, with an unforgettable, rich mouthfeel.',
+      category: 'Wagyu',
+      image: '/images/image_241.jpg'
+    },
+    {
+      _id: '25',
+      name: 'Japanese A5 Wagyu Petite Striploin Steak 5oz',
+      price: '54',
+      description: 'Our petite striploin steaks are a great way to get a taste of sublime, A5 Kagoshima Wagyu in a manageable portion size. Each package comes with one A5 Wagyu Petite Striploin Steak.',
+      category: 'Wagyu',
+      image: '/images/image_251.jpg'
+    },
+    {
+      _id: '26',
+      name: 'Japanese A5 Wagyu Striploin Ends 11oz',
+      price: '72',
+      description: 'These A5 Japanese Wagyu Striploin Ends have the perfect balance of tenderness, texture, and flavor. Thinner pieces can be cut into strips, while thicker sections can be left whole and prepared as small steaks.',
+      category: 'Wagyu',
+      image: '/images/image_261.jpg'
+    },
+    {
+      _id: '27',
+      name: 'Japanese A5 Wagyu Filet Medallions 8oz',
+      price: '120',
+      description: 'Cut from the end of the tenderloin, these Japanese Wagyu Filet Medallions are exceptionally tender. Cook whole or cut in half for a fast sear; these are simply a must-eat.',
+      category: 'Wagyu',
+      image: '/images/image_271.jpg'
+    },
+    {
+      _id: '28',
+      name: 'Japanese A5 Wagyu Petite Striploin Trio 12oz',
+      price: '130',
+      description: 'Our petite striploin steaks are a great way to get a taste of sublime, A5 Wagyu in a manageable portion size. Each package comes with three A5 Wagyu Petite Striploin Steaks.',
+      category: 'Wagyu',
+      image: '/images/image_281.jpg'
+    },
+    {
+      _id: '29',
+      name: 'Japanese A5 Wagyu Rib Caps 3.5lb',
+      price: '194',
+      description: 'Known for its luxurious marbling and buttery umami finish, these delicious A5 Rib Caps (Rib Caps are lifter meat from above the ribeye) are ideal for sharing with a friend or two if you’re willing. Packed with two Japanese Wagyu Rib Caps to the total weight.',
+      category: 'Wagyu',
+      image: '/images/image_291.jpg'
+    },
+    {
+      _id: '30',
+      name: 'Japanese A5 Wagyu Prime Rib 4.5lb',
+      price: '360',
+      description: 'Indulge in the most amazingly marbled Rib Roast you have ever laid eyes on. Use this cut to create thick-cut A5 Wagyu Ribeye Steaks, or roast the entire Ribloin in the oven. Either way, it will be an unforgettable experience.',
+      category: 'Wagyu',
+      image: '/images/image_301.jpg'
+    },
+
+    {
       _id: '8',
       name: 'Chicken Breasts - 2 * 6oz',
       price: '14',
@@ -136,30 +218,30 @@ const data = {
       category: 'seafood',
       image: '/images/image_171.jpg'
     },
-    {
-      _id: '18',
-      name: '18 oz T-Bone - Prime, Wet Aged',
-      price: '30',
-      description: 'A junior version our Porterhouse, yet still the best of both worlds with a succulent NY Strip on one side and a tender, melt in your mouth filet on the other. Bone appetite!   ',
-      category: 'beef',
-      image: '/images/image_181.jpg'
-    },
-    {
-      _id: '19',
-      name: 'The Mother Chucker Prime Burger(Pack of 2; 8oz each)',
-      price: '9',
-      description: 'A Happy To Meat You (HTMY) exclusive! This is a carefully balanced blend of Prime Chuck & Outside Skirt to produce one of the most incredibly flavorful burgers ever! With the buttery flavor profile from our outside skirt and our quality prime chuck, we’ve personally created the best, most juiciest burger on earth. This bodacious blend is guaranteed NOT to dry out on the grill. Extra napkins not included.  (2) 8oz burgers per pack.',
-      category: 'beef',
-      image: '/images/image_191.jpg'
-    },
 
     {
-      _id: '20',
-      name: '2 Rib Baby Back (2lbs each)',
-      price: '30',
-      description: 'The centerpiece of your next BBQ!  With 4lbs to work with, these meaty, juicy, and deliciously tender baby backs are sure to impress. (2) Racks (2) lbs each',
-      category: 'beef',
-      image: '/images/image_201.jpg'
+      _id: '21',
+      name: 'Wild Alaska King Crab Legs 3lb',
+      price: '120',
+      description: 'Alaska Red King Crab, caught in the frigid waters of the Bering Sea, is the largest and most sought-after of Alaskan crabs. Its legs are large, bright red with darker highlights around the spines and tips, and full of tender white meat that is packed with rich, delicious crab flavor. We have a limited supply of these beauties, sustainably caught and ready to ship to your door.',
+      category: 'Seafood',
+      image: '/images/image_211.jpg'
+    },
+    {
+      _id: '22',
+      name: 'Alaskan Dungeness Crab – Wild Caught',
+      price: '47',
+      description: '-Approximately (1) 2.0lbs – 3.0lbs whole Dungeness Crab. Our Dungeness are harvested, cooked, and flash-frozen in Southeast Alaska. The crab is individually wrapped for maximum freshness.',
+      category: 'Seafood',
+      image: '/images/image_221.jpg'
+    },
+    {
+      _id: '23',
+      name: 'SNOW CRAB 2lb',
+      price: '46',
+      description: 'Just as in our King Crab, Supreme’ s Snow Crab Clusters can be served hot or cold. For hot preparations, gentle heating is all that’s required once the legs are thawed. To steam, throw legs in a covered pot with an inch or so of water, bring to a boil and steam just until just heated through, about 5 minutes.',
+      category: 'Seafood',
+      image: '/images/image_231.jpg'
     },
 
 
