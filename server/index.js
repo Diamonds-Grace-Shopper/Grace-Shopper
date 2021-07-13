@@ -8,7 +8,7 @@ const apiRouter = require('./api')
 const { client } = require('./db')
 const PORT = process.env.PORT || 4000 // server port
 
-// connect the database client
+// connect the database client  
 client.connect()
 server.use(cors())
 
