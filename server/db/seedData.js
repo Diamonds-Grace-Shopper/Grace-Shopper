@@ -33,8 +33,7 @@ async function createTables() {
         id  SERIAL PRIMARY KEY, 
         username VARCHAR(255) UNIQUE NOT NULL, 
         password VARCHAR(255) NOT NULL,
-        email VARCHAR(255) NOT NULL,
-        "shippingAddress" VARCHAR(255) NOT NULL
+        email VARCHAR(255) NOT NULL
       );
       CREATE TABLE products(
         id SERIAL PRIMARY KEY,
@@ -81,12 +80,12 @@ async function createInitialUsers() {
   console.log('Starting to create users...')
   try {
     const usersToCreate = [
-      { username: 'albert', password: 'bertie99', email: 'albert@gmail.com', shippingAddress: '1337 w michigan ave' },
-      { username: 'sandra', password: 'sandra123', email: 'sandra@gmail.com', shippingAddress: '532 n wentworth ave' },
-      { username: 'glamgal', password: 'glamgal123', email: 'glamgal@gmail.com', shippingAddress: '1925 s 17th st' },
-      { username: 'spongebob', password: 'squarepants', email: 'spongebob@gmail.com', shippingAddress: '324 s pineapple dr' },
-      { username: 'patrick', password: 'star', email: 'patrick@gmail.com', shippingAddress: 'under a rock' },
-      { username: 'squidward', password: 'tentacles', email: 'squidward@gmail.com', shippingAddress: '325 s pineapple dr' }
+      { username: 'albert', password: 'bertie99', email: 'albert@gmail.com' },
+      { username: 'sandra', password: 'sandra123', email: 'sandra@gmail.com' },
+      { username: 'glamgal', password: 'glamgal123', email: 'glamgal@gmail.com' },
+      { username: 'spongebob', password: 'squarepants', email: 'spongebob@gmail.com' },
+      { username: 'patrick', password: 'star', email: 'patrick@gmail.com' },
+      { username: 'squidward', password: 'tentacles', email: 'squidward@gmail.com' }
     ]
     const users = await Promise.all(usersToCreate.map(createUser))
 
