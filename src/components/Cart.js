@@ -58,8 +58,8 @@ export default function Cart(props) {
               </div>
               <hr />
               <div className="row-c">
-                <button onClick={() => alert('Add payment!')}>
-                  Checkout
+                <button onClick={() => alert('Thank you for your purchase!')}>
+                  Confirm
                 </button>
               </div>
             </>
