@@ -27,6 +27,7 @@ function AuthForm(props) {
           setEmail('')
           await setUser(data.user)
           props.history.push('/home') // send it home
+          alert('Your account has been made!')
         } else if (data.user) {
           setUsername('')
           setPassword('')
