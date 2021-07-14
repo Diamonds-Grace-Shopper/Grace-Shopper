@@ -3,13 +3,14 @@ import { React, useState } from 'react';
 import data from '../data'
 import { addProductToOrder, checkLogin, getOrderByUserId } from '../utils'
 import { Link } from 'react-router-dom';
+import Cart from '../components/Cart'
 
 import Product from '../components/Product'
 
 
 export default function ProductScreen(props){
-  const { onAdd } = props;
-  
+  const { onAdd, ProductScreen } = props;
+
   async function handleSubmit(event) {
     event.preventDefault()
 
