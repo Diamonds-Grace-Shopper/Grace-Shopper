@@ -8,7 +8,6 @@ function AuthForm(props) {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [email, setEmail] = useState('')
-  const [shippingAddress, setShippingAddress] = useState('')
 
   async function handleSubmit(evt) {
     evt.preventDefault()
@@ -20,15 +19,15 @@ function AuthForm(props) {
         let data =
           type === 'login'
             ? await login(username, password)
-            : await register(username, password, email, shippingAddress)
+            : await register(username, password, email)
         if (data.status === 'register') {
           await createOrder(data.user.id)
           setUsername('')
           setPassword('')
           setEmail('')
-          setShippingAddress('')
           await setUser(data.user)
           props.history.push('/home') // send it home
+          alert('Your account has been made!')
         } else if (data.user) {
           setUsername('')
           setPassword('')
@@ -73,16 +72,6 @@ function AuthForm(props) {
               type='text'
               placeholder='Type your email'
               onChange={(evt) => setEmail(evt.target.value)}
-            />
-          </div>
-          <div>
-            <label htmlFor='shippingAddress'>Shipping Address:</label>
-            <input
-              id='shipping-address'
-              value={shippingAddress}
-              type='text'
-              placeholder='Type your shipping address'
-              onChange={(evt) => setShippingAddress(evt.target.value)}
             />
           </div>
         </div>

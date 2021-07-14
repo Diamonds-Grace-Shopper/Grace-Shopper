@@ -6,7 +6,7 @@ export default function Product(props){
   function addToCartAlert(event) {
     event.preventDefault()
     onAdd(product)
-    alert('item has been added to cart')
+    alert(`${product.name} has been added to the cart`)
   }
 
   return(

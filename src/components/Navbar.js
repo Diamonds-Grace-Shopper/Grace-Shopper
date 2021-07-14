@@ -6,6 +6,7 @@ function Navbar({ user, setUser, history }) {
     localStorage.removeItem('token')
     setUser({})
     history.push('/')
+    alert('You have logged out')
   }
 
   return (
